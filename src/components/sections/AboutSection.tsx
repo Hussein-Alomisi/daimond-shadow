@@ -1,0 +1,125 @@
+"use client";
+
+import { motion, Variants } from "framer-motion";
+import Image from "next/image";
+import { CheckCircle2 } from "lucide-react";
+import { SITE_INFO } from "@/src/lib/constants";
+
+const textVariants: Variants = {
+  hidden: { opacity: 0, x: 40 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.8, ease: "easeOut" }
+  }
+};
+
+const imageVariants: Variants = {
+  hidden: { opacity: 0, x: -40 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.8, ease: "easeOut", delay: 0.2 }
+  }
+};
+
+const features = [
+  "خبرة طويلة في قطاع التشييد",
+  "فريق هندسي متخصص",
+  "جودة عالية في التنفيذ",
+  "التزام دقيق بالمواعيد"
+];
+
+export function AboutSection() {
+  return (
+    <section
+      className="py-24 px-6 relative overflow-hidden bg-primary"
+      id="about-section"
+    >
+      {/* Decorative background element */}
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/5 to-transparent pointer-events-none" />
+
+      <div className="container mx-auto max-w-7xl relative z-10">
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+          {/* Text Content (Right side in RTL) */}
+          <motion.div
+            variants={textVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="flex flex-col"
+          >
+            {/* Subtitle Badge */}
+            <div className="flex items-center gap-4 mb-6">
+              <span className="w-12 h-[2px] bg-gold rounded block"></span>
+              <span className="text-gold font-semibold tracking-wider text-sm md:text-base">
+                تعرف علينا
+              </span>
+            </div>
+
+            <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6">
+              من نحن
+            </h2>
+
+            <h3 className="text-xl md:text-2xl font-bold text-white/90 mb-6">
+              خبرة تمتد لسنوات في مجال البناء والتشييد
+            </h3>
+
+            <p className="text-white/70 text-lg leading-relaxed mb-8">
+              تعتبر <span className="text-gold font-semibold text-lg">{SITE_INFO.name}</span> من الشركات الرائدة في قطاع المقاولات.
+              نحن نؤمن بأن بناء المستقبل يبدأ من وضع أساسات صلبة قائمة على الجودة، الالتزام، والتخطيط الاستراتيجي.
+              نقدم حلولاً هندسية مبتكرة تضمن تحقيق تطلعات عملائنا بأعلى المعايير العالمية.
+            </p>
+
+            {/* Bullet points */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+              {features.map((feature, idx) => (
+                <div key={idx} className="flex items-center gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-gold" />
+                  <span className="text-white/80 font-medium text-lg">{feature}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Decorative Vertical Line connecting to the future */}
+            <div className="hidden lg:block absolute -bottom-4 right-1/2 w-px h-32 bg-gradient-to-b from-gold/50 to-transparent"></div>
+
+          </motion.div>
+
+          {/* Image Content (Left side in RTL) */}
+          <motion.div
+            variants={imageVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="relative w-full h-[500px] lg:h-[650px] rounded-2xl overflow-hidden group shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-secondary"
+          >
+            {/* The Image */}
+            <Image
+              src="/images/hero/about-bg.jpg"
+              alt="مهندسون في موقع البناء"
+              fill
+              priority
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+
+            {/* Golden Frame Overlay */}
+            <div className="absolute inset-4 border border-gold/40 rounded-xl rounded-tr-[4rem] rounded-bl-[4rem] pointer-events-none transition-all duration-700 group-hover:border-gold/80" />
+
+            {/* Cinematic Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-primary/20 pointer-events-none" />
+
+            {/* Years of Experience Badge */}
+            <div className="absolute bottom-8 right-8 bg-primary/90 backdrop-blur-md border border-gold/30 p-6 rounded-tl-[2rem] rounded-br-[2rem] shadow-2xl">
+              <div className="text-gold font-bold text-4xl mb-1">+15</div>
+              <div className="text-white/90 text-sm font-medium">عاماً من الخبرة</div>
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
+    </section>
+  );
+}

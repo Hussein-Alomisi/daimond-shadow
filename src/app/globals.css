@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+html {
+  direction: rtl;
+}
+
+:root {
+  --background: #fdfdfd;
+  --foreground: #0A0A0A;
+}
+
+@theme {
+  --color-primary: #0A0A0A;
+  --color-secondary: #171717;
+  --color-gold: #D4AF37;
+  --color-gold-light: #F3E5AB;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0A0A0A;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  /* The Cairo font will be applied via Next.js className in layout.tsx */
+}
