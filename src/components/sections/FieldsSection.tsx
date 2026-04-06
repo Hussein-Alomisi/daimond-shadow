@@ -44,7 +44,10 @@ const textBullets = [
   "ترميم وتأهيل المباني",
   "عوازل الأسطح بأحدث التقنيات",
   "تركيب السواتر والبرجولات",
-  "حلول الساندوتش بانل الحديثة"
+  "حلول الساندوتش بانل الحديثة",
+  "تصميم وتركيب المظلات",
+  "تصميم وتركيب هناجر",
+
 ];
 
 export function FieldsSection() {
@@ -55,70 +58,72 @@ export function FieldsSection() {
     >
       <div className="container mx-auto max-w-7xl relative z-10">
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+        {/* Main Grid Wrapper - 4 Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 items-stretch">
 
-          {/* Right Side: Text Content */}
+          {/* 1. TEXT CONTENT - SPANS 2x2 ON THE RIGHT (In RTL) */}
           <motion.div
             variants={textVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="flex flex-col h-full justify-center"
+            className="order-1 col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 bg-secondary/30 p-8 md:p-10 rounded-2xl border border-black/20 backdrop-blur-md flex flex-col justify-center shadow-xl"
           >
             <div className="flex items-center gap-4 mb-6">
               <span className="w-12 h-[2px] bg-gold rounded block"></span>
-              <span className="text-gold font-semibold tracking-wider text-sm md:text-base">
+              <span className="text-gold font-bold tracking-wider text-sm md:text-base font-cairo">
                 نطاق أعمالنا
               </span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight mb-6">
+            <h2 className="text-4xl md:text-5xl font-black text-foreground leading-tight mb-6 font-cairo">
               مجالاتنا
             </h2>
 
-            <p className="text-foreground/80 text-lg leading-relaxed mb-10">
-              نحن في <span className="text-gold font-semibold leading-relaxed">{SITE_INFO.name}</span> نوفر لكم مجموعة كاملة من الحلول الذكية في مجالاتنا المتعددة. نهتم بكل التفاصيل الدقيقة لنضمن لكم تنفيذاً مثالياً يجمع بين المتانة والشكل الجمالي الذي تطمحون إليه، سواء في مشاريعكم السكنية أو التجارية.
+            <p className="text-foreground/90 text-lg md:text-xl leading-relaxed mb-8 font-cairo">
+              نحن في <span className="text-gold font-bold">{SITE_INFO.name}</span> نحول المساحات إلى لوحات فنية تجمع بين الصلابة والجمال، لنقدم لكم تجربة فريدة في عالم البناء والتصميم.
             </p>
 
-            <div className="flex flex-col gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {textBullets.map((bullet, idx) => (
-                <div key={idx} className="flex items-start gap-4 group">
-                  <div className="mt-1 flex-shrink-0">
-                    <CheckCircle2 className="w-6 h-6 text-gold/80 transition-transform group-hover:scale-110 group-hover:text-gold" />
-                  </div>
-                  <span className="text-foreground/90 font-medium text-lg leading-snug">
-                    {/* Highlight dynamic words visually using regex split or simply rendering */}
+                <div key={idx} className="flex items-center gap-3 group">
+                  <CheckCircle2 className="w-5 h-5 text-gold shrink-0 transition-transform group-hover:scale-110" />
+                  <span className="text-foreground/80 font-bold text-sm md:text-base font-cairo">
                     {bullet}
                   </span>
                 </div>
               ))}
             </div>
-
-            {/* Action button directly engaging user */}
-            <div className="mt-12">
-              <button className="bg-transparent border-2 border-gold text-foreground px-8 py-3 rounded text-lg font-bold hover:bg-gold hover:text-black transition-all">
-                تعرف أكثر على خبراتنا
-              </button>
-            </div>
           </motion.div>
 
+          {/* 2. TOP ROW - LEFT FLANK (Images 0 and 1) */}
+          <div className="order-2">
+            <FieldCard field={MOCK_FIELDS[0]} variants={cardReveal} />
+          </div>
+          <div className="order-3">
+            <FieldCard field={MOCK_FIELDS[1]} variants={cardReveal} />
+          </div>
 
-          {/* Left Side: Images Grid */}
-          <div className="relative">
-            {/* Optional decorative background blob */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-gold/5 blur-[120px] rounded-full pointer-events-none" />
+          {/* 3. SECOND ROW - LEFT FLANK (Images 2 and 3) */}
+          <div className="order-4">
+            <FieldCard field={MOCK_FIELDS[2]} variants={cardReveal} />
+          </div>
+          <div className="order-5">
+            <FieldCard field={MOCK_FIELDS[3]} variants={cardReveal} />
+          </div>
 
-            <motion.div
-              variants={gridContainerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-6 relative z-10"
-            >
-              {MOCK_FIELDS.map((field) => (
-                <FieldCard key={field.id} field={field} variants={cardReveal} />
-              ))}
-            </motion.div>
+          {/* 4. THIRD ROW - FULL WIDTH (Images 4, 5, 6, 7) */}
+          <div className="order-6">
+            <FieldCard field={MOCK_FIELDS[4]} variants={cardReveal} />
+          </div>
+          <div className="order-7">
+            <FieldCard field={MOCK_FIELDS[5]} variants={cardReveal} />
+          </div>
+          <div className="order-8">
+            <FieldCard field={MOCK_FIELDS[6]} variants={cardReveal} />
+          </div>
+          <div className="order-9">
+            <FieldCard field={MOCK_FIELDS[7]} variants={cardReveal} />
           </div>
 
         </div>

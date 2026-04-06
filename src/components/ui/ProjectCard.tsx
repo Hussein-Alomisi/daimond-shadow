@@ -64,6 +64,13 @@ export function ProjectCard({ project, variants }: ProjectCardProps) {
             )}
           </div>
 
+          {/* "See Details" Button - Slides up on hover */}
+          <div className="mt-6 transform translate-y-4 opacity-0 transition-all duration-500 delay-200 group-hover:translate-y-0 group-hover:opacity-100">
+            <span className="inline-block bg-gold text-primary px-5 py-2 rounded text-sm font-bold shadow-lg shadow-gold/20 hover:bg-gold-light transition-colors duration-300">
+              رؤية التفاصيل
+            </span>
+          </div>
+
         </div>
       </div>
     </motion.div>
