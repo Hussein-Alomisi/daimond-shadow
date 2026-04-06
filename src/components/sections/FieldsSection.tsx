@@ -3,6 +3,7 @@
 import { motion, Variants } from "framer-motion";
 import { FieldCard } from "../ui/FieldCard";
 import { MOCK_FIELDS } from "@/src/lib/mockFields";
+import { SITE_INFO } from "@/src/lib/constants";
 import { CheckCircle2 } from "lucide-react";
 
 const textVariants: Variants = {
@@ -76,7 +77,7 @@ export function FieldsSection() {
             </h2>
 
             <p className="text-foreground/80 text-lg leading-relaxed mb-10">
-              نقدم في <span className="text-gold font-semibold">تشييد القوى للمقاولات</span> مجموعة متكاملة ومترابطة من الحلول في قطاع البناء والتشييد. نعتمد على خبرات هندسية متقدمة لتوفير تنفيذ دقيق عالي الجودة يلبي احتياجات الأسواق السكنية والتجارية على حد سواء، مع التزامنا الدائم بالابتكار والاستدامة.
+              نحن في <span className="text-gold font-semibold leading-relaxed">{SITE_INFO.name}</span> نوفر لكم مجموعة كاملة من الحلول الذكية في مجالاتنا المتعددة. نهتم بكل التفاصيل الدقيقة لنضمن لكم تنفيذاً مثالياً يجمع بين المتانة والشكل الجمالي الذي تطمحون إليه، سواء في مشاريعكم السكنية أو التجارية.
             </p>
 
             <div className="flex flex-col gap-5">

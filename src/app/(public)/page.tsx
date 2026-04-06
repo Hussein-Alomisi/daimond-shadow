@@ -9,9 +9,9 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <FieldsSection />
       <AboutSection />
       <ServicesSection />
-      <FieldsSection />
       <ProjectsGrid projects={MOCK_PROJECTS} />
     </>
   );

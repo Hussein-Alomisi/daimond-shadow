@@ -17,6 +17,8 @@ html {
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --font-cairo: var(--font-cairo), ui-sans-serif, system-ui;
 }
 
 @media (prefers-color-scheme: dark) {

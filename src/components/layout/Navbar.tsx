@@ -21,11 +21,10 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
-          scrolled
-            ? "bg-primary/95 backdrop-blur-md border-gold/20 py-4 shadow-lg shadow-black/50"
-            : "bg-transparent border-transparent py-6"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b font-cairo ${scrolled
+          ? "bg-primary/95 backdrop-blur-md border-gold/20 py-4 shadow-lg shadow-black/50"
+          : "bg-transparent border-transparent py-6"
+          }`}
       >
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="flex items-center justify-between">
@@ -38,10 +37,10 @@ export function Navbar() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
               {NAVIGATION_LINKS.map((link) => (
                 <Link
-                  key={link.href}
+                  key={link.label}
                   href={link.href}
                   className="text-sm font-medium text-white/90 hover:text-gold transition-colors duration-300"
                 >
@@ -51,7 +50,7 @@ export function Navbar() {
             </nav>
 
             {/* Desktop CTA */}
-            <div className="hidden md:flex items-center">
+            <div className="hidden lg:flex items-center">
               <Link
                 href="/contact"
                 className="bg-gold text-primary px-6 py-2.5 rounded text-sm font-bold shadow-lg shadow-gold/20 hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300"
@@ -63,7 +62,7 @@ export function Navbar() {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="md:hidden text-white/90 hover:text-gold transition-colors p-2"
+              className="lg:hidden text-white/90 hover:text-gold transition-colors p-2"
               aria-label="Open Menu"
             >
               <svg
@@ -95,7 +94,7 @@ export function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 md:hidden"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 lg:hidden"
             />
 
             {/* Menu Panel */}
@@ -104,10 +103,10 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.3 }}
-              className="fixed top-0 right-0 bottom-0 w-3/4 max-w-sm bg-primary border-l border-gold/20 z-50 md:hidden flex flex-col shadow-2xl"
+              className="fixed top-0 right-0 bottom-0 w-3/4 max-w-sm bg-primary border-l border-gold/20 z-50 lg:hidden flex flex-col shadow-2xl"
             >
               <div className="flex items-center justify-between p-6 border-b border-white/10">
-                <span className="text-xl font-bold text-gold">القائمة</span>
+                <span className="text-xl font-bold text-gold">جواهر للمقاولات العامة</span>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-white/70 hover:text-white p-2 rounded-full hover:bg-white/5 transition-colors"
@@ -131,7 +130,7 @@ export function Navbar() {
               <div className="flex flex-col p-6 gap-6 overflow-y-auto">
                 {NAVIGATION_LINKS.map((link) => (
                   <Link
-                    key={link.href}
+                    key={link.label}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
                     className="text-lg font-medium text-white/90 hover:text-gold transition-colors"
