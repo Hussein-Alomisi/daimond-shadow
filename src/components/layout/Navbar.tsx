@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAVIGATION_LINKS, SITE_INFO } from "@/src/lib/constants";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,8 +24,8 @@ export function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b font-cairo ${scrolled
-          ? "bg-primary/95 backdrop-blur-md border-gold/20 py-4 shadow-lg shadow-black/50"
-          : "bg-transparent border-transparent py-6"
+          ? "bg-primary border-gold/20 py-4 shadow-lg shadow-black/50"
+          : "bg-black/40 backdrop-blur-md border-transparent py-5"
           }`}
       >
         <div className="container mx-auto px-6 max-w-7xl">
@@ -37,16 +39,24 @@ export function Navbar() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
-              {NAVIGATION_LINKS.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="text-sm font-medium text-white/90 hover:text-gold transition-colors duration-300"
-                >
-                  {link.label}
-                </Link>
-              ))}
+            <nav aria-label="التنقل الرئيسي" className="hidden lg:flex items-center gap-6 xl:gap-8">
+              {NAVIGATION_LINKS.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className={`text-base font-medium transition-all duration-300 relative group py-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] ${isActive ? "text-gold" : "text-white/90 hover:text-gold"
+                      }`}
+                  >
+                    {link.label}
+                    <span
+                      className={`absolute bottom-0 left-0 h-0.5 bg-gold transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
+                    />
+                  </Link>
+                );
+              })}
             </nav>
 
             {/* Desktop CTA */}
@@ -99,6 +109,9 @@ export function Navbar() {
 
             {/* Menu Panel */}
             <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-label="قائمة التنقل"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -106,9 +119,10 @@ export function Navbar() {
               className="fixed top-0 right-0 bottom-0 w-3/4 max-w-sm bg-primary border-l border-gold/20 z-50 lg:hidden flex flex-col shadow-2xl"
             >
               <div className="flex items-center justify-between p-6 border-b border-white/10">
-                <span className="text-xl font-bold text-gold">جواهر للمقاولات العامة</span>
+                <span className="text-xl font-bold text-gold">{SITE_INFO.name}</span>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
+                  aria-label="إغلاق القائمة"
                   className="text-white/70 hover:text-white p-2 rounded-full hover:bg-white/5 transition-colors"
                 >
                   <svg
@@ -128,16 +142,20 @@ export function Navbar() {
               </div>
 
               <div className="flex flex-col p-6 gap-6 overflow-y-auto">
-                {NAVIGATION_LINKS.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-lg font-medium text-white/90 hover:text-gold transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {NAVIGATION_LINKS.map((link) => {
+                  const isActive = pathname === link.href;
+                  return (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`text-lg font-medium transition-colors ${isActive ? "text-gold" : "text-white/90 hover:text-gold"
+                        }`}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
                 <div className="mt-4 pt-6 border-t border-white/10">
                   <Link
                     href="/contact"

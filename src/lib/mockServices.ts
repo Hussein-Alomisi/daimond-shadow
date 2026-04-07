@@ -1,8 +1,8 @@
-import { 
-  Building2, 
-  Umbrella, 
-  Fence, 
-  Hammer, 
+import {
+  Building2,
+  Umbrella,
+  Fence,
+  Hammer,
   Droplets,
   Wrench
 } from "lucide-react";

@@ -1,33 +1,24 @@
-"use client";
-
-import { motion, Variants } from "framer-motion";
+import { MotionDiv } from "../ui/MotionDiv";
 import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
 import { SITE_INFO } from "@/src/lib/constants";
+import type { Variants } from "framer-motion";
 
 const textVariants: Variants = {
   hidden: { opacity: 0, x: 40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.8, ease: "easeOut" }
-  }
+  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
 };
 
 const imageVariants: Variants = {
   hidden: { opacity: 0, x: -40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.8, ease: "easeOut", delay: 0.2 }
-  }
+  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut", delay: 0.2 } },
 };
 
 const features = [
   "دقة عالية في تركيب المظلات والسواتر",
   "خبرة طويلة في الترميم والمقاولات",
   "تشطيبات راقية وأصلية للقرميد",
-  "الالتزام الكامل بالجودة والمواعيد"
+  "الالتزام الكامل بالجودة والمواعيد",
 ];
 
 export function AboutSection() {
@@ -37,23 +28,24 @@ export function AboutSection() {
       id="about-section"
     >
       {/* Decorative background element */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/5 to-transparent pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/5 to-transparent pointer-events-none"
+      />
 
       <div className="container mx-auto max-w-7xl relative z-10">
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
-          {/* Text Content (Right side in RTL) */}
-          <motion.div
+          {/* Text Content */}
+          <MotionDiv
             variants={textVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             className="flex flex-col"
           >
-            {/* Subtitle Badge */}
             <div className="flex items-center gap-4 mb-6">
-              <span className="w-12 h-[2px] bg-gold rounded block"></span>
+              <span className="w-12 h-[2px] bg-gold rounded block" />
               <span className="text-gold font-semibold tracking-wider text-sm md:text-base">
                 تعرف علينا
               </span>
@@ -68,53 +60,58 @@ export function AboutSection() {
             </h3>
 
             <p className="text-white/70 text-lg leading-relaxed mb-8">
-              في <span className="text-gold font-semibold text-lg">{SITE_INFO.name}</span>، لا نكتفي بمجرد التنفيذ، بل نسعى لأن نكون شركاءكم في الإبداع. بفضل خبرتنا التي تجاوزت الـ 15 عاماً في المنطقة الشرقية، نضع بين أيديكم حلولاً متكاملة بدأت بتخصصنا في عالم المظلات والسواتر، وامتدت لتشمل كافة أعمال المقاولات، القرميد، والترميمات، مع التركيز الدائم على تقديم جودة تدوم طويلاً بلمسة جمالية عصرية.
+              في{" "}
+              <span className="text-gold font-semibold text-lg">{SITE_INFO.name}</span>، لا
+              نكتفي بمجرد التنفيذ، بل نسعى لأن نكون شركاءكم في الإبداع. بفضل خبرتنا التي
+              تجاوزت الـ 15 عاماً في المنطقة الشرقية، نضع بين أيديكم حلولاً متكاملة بدأت
+              بتخصصنا في عالم المظلات والسواتر، وامتدت لتشمل كافة أعمال المقاولات، القرميد،
+              والترميمات، مع التركيز الدائم على تقديم جودة تدوم طويلاً بلمسة جمالية عصرية.
             </p>
 
-            {/* Bullet points */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-              {features.map((feature, idx) => (
-                <div key={idx} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-gold" />
+              {features.map((feature) => (
+                <div key={feature} className="flex items-center gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-gold shrink-0" aria-hidden="true" />
                   <span className="text-white/80 font-medium text-lg">{feature}</span>
                 </div>
               ))}
             </div>
+          </MotionDiv>
 
-            {/* Decorative Vertical Line connecting to the future */}
-            <div className="hidden lg:block absolute -bottom-4 right-1/2 w-px h-32 bg-gradient-to-b from-gold/50 to-transparent"></div>
-
-          </motion.div>
-
-          {/* Image Content (Left side in RTL) */}
-          <motion.div
+          {/* Image Content */}
+          <MotionDiv
             variants={imageVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             className="relative w-full h-[500px] lg:h-[650px] rounded-2xl overflow-hidden group shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-secondary"
           >
-            {/* The Image */}
             <Image
               src="/images/hero/about-bg.jpg"
               alt="مهندسون في موقع البناء"
               fill
-              priority
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
 
             {/* Golden Frame Overlay */}
-            <div className="absolute inset-4 border border-gold/40 rounded-xl rounded-tr-[4rem] rounded-bl-[4rem] pointer-events-none transition-all duration-700 group-hover:border-gold/80" />
+            <div
+              aria-hidden="true"
+              className="absolute inset-4 border border-gold/40 rounded-xl rounded-tr-[4rem] rounded-bl-[4rem] pointer-events-none transition-all duration-700 group-hover:border-gold/80"
+            />
 
             {/* Cinematic Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-primary/20 pointer-events-none" />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-primary/20 pointer-events-none"
+            />
 
-            {/* Years of Experience Badge */}
+            {/* Years Badge */}
             <div className="absolute bottom-8 right-8 bg-primary/90 backdrop-blur-md border border-gold/30 p-6 rounded-tl-[2rem] rounded-br-[2rem] shadow-2xl">
               <div className="text-gold font-bold text-4xl mb-1">+15</div>
               <div className="text-white/90 text-sm font-medium">عاماً من الخبرة</div>
             </div>
-          </motion.div>
+          </MotionDiv>
 
         </div>
       </div>

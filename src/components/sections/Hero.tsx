@@ -40,6 +40,9 @@ export function Hero() {
           priority
           className="object-cover opacity-60    object-center"
         />
+        {/* Gradient Overlay top-fade for Navbar visibility */}
+        <div className="absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-black/60 to-transparent z-10" />
+
         {/* Darken the text side so the white hero copy stays readable */}
         <div className="absolute inset-y-0 right-0 w-full bg-[linear-gradient(270deg,rgba(10,10,10,0.82)_0%,rgba(10,10,10,0.52)_28%,rgba(10,10,10,0.16)_52%,transparent_72%)] z-10" />
         {/* Gradient Overlay left-to-right fade & bottom-fade for cinematic feel */}

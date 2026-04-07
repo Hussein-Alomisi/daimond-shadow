@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     default: SITE_INFO.name,
   },
   description: SITE_INFO.description,
-  metadataBase: new URL(SITE_INFO.domain),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || SITE_INFO.domain),
   openGraph: {
     title: SITE_INFO.name,
     description: SITE_INFO.description,

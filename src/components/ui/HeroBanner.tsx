@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+import type { ReactNode } from "react";
 
 interface BreadcrumbItem {
   label: string;
@@ -11,11 +12,13 @@ interface BreadcrumbItem {
 }
 
 interface HeroBannerProps {
-  title: string | React.ReactNode;
-  subtitle?: string | React.ReactNode;
+  title: string | ReactNode;
+  subtitle?: string | ReactNode;
   breadcrumb?: BreadcrumbItem[];
   backgroundImage: string;
-  overlayOpacity?: number; // 0 to 100, default 70
+  /** Descriptive Arabic alt text for the background image */
+  backgroundImageAlt: string;
+  overlayOpacity?: number; // 0 to 100, default 75
 }
 
 export function HeroBanner({
@@ -23,6 +26,7 @@ export function HeroBanner({
   subtitle,
   breadcrumb,
   backgroundImage,
+  backgroundImageAlt,
   overlayOpacity = 75,
 }: HeroBannerProps) {
   return (
@@ -31,7 +35,7 @@ export function HeroBanner({
       <div className="absolute inset-0 w-full h-full z-0">
         <Image
           src={backgroundImage}
-          alt="Banner Background"
+          alt={backgroundImageAlt}
           fill
           priority
           className="object-cover"
