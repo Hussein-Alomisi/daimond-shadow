@@ -15,7 +15,7 @@ export default function AboutPage() {
         title="من نحن"
         subtitle="شركاؤكم في البناء والإبداع منذ أكثر من 15 عاماً"
         backgroundImage="/images/hero/about-bg.jpg"
-        backgroundImageAlt="موقع بناء - جواهر للمقاولات"
+        backgroundImageAlt="موقع بناء - جوهرة الظل للمقاولات"
         breadcrumb={[
           { label: "الرئيسية", href: "/" },
           { label: "من نحن" },

@@ -6,7 +6,7 @@ import { MOCK_PROJECTS } from "@/src/lib/mockData";
 export const metadata: Metadata = {
   title: "مشاريعنا",
   description:
-    "استعرض أحدث مشاريع جواهر للمقاولات العامة: مظلات، سواتر، برجولات، وإنشاءات معدنية في المنطقة الشرقية.",
+    "استعرض أحدث مشاريع جوهرة الظل للمقاولات العامة: مظلات، سواتر، برجولات، وإنشاءات معدنية في المنطقة الشرقية.",
 };
 
 export default function ProjectsPage() {
@@ -16,7 +16,7 @@ export default function ProjectsPage() {
         title="مشاريعنا"
         subtitle="نماذج من أعمالنا المنجزة في المنطقة الشرقية وما جاورها"
         backgroundImage="/images/hero/about-bg.jpg"
-        backgroundImageAlt="مشاريع جواهر للمقاولات العامة"
+        backgroundImageAlt="مشاريع جوهرة الظل للمقاولات العامة"
         breadcrumb={[
           { label: "الرئيسية", href: "/" },
           { label: "مشاريعنا" },

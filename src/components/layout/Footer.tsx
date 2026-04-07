@@ -141,7 +141,7 @@ export function Footer() {
               <div className="mb-5 flex items-center gap-2">
                 <Building2 className="text-gold" size={28} aria-hidden="true" />
                 <div>
-                  <p className="text-gold font-extrabold text-base leading-tight">جواهر</p>
+                  <p className="text-gold font-extrabold text-base leading-tight">جوهرة الظل</p>
                   <p className="text-white/70 text-xs leading-tight">للمقاولات العامة</p>
                 </div>
               </div>

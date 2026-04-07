@@ -42,7 +42,7 @@ export default function ContactPage() {
         title="تواصل معنا"
         subtitle="نحن هنا لمساعدتكم — اطلب عرض سعر مجاني الآن"
         backgroundImage="/images/hero/about-bg.jpg"
-        backgroundImageAlt="تواصل مع جواهر للمقاولات العامة"
+        backgroundImageAlt="تواصل مع جوهرة الظل للمقاولات العامة"
         breadcrumb={[
           { label: "الرئيسية", href: "/" },
           { label: "تواصل معنا" },

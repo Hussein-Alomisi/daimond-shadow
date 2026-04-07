@@ -6,6 +6,7 @@ import {
   Droplets,
   Wrench
 } from "lucide-react";
+import { decodeReply } from "next/dist/server/app-render/entry-base";
 
 export interface Service {
   id: string;
@@ -17,38 +18,44 @@ export interface Service {
 export const MOCK_SERVICES: Service[] = [
   {
     id: "srv-1",
-    title: "المقاولات العامة والبناء",
-    description: "تنفيذ مشاريع المقاولات المتكاملة والهياكل الإنشائية بأعلى معايير الجودة والاتقان.",
-    icon: Building2,
-  },
-  {
-    id: "srv-2",
-    title: "تصميم وتركيب المظلات",
-    description: "تركيب مظلات السيارات والحدائق بأشكال عصرية وخامات مقاومة لأقسى الظروف الجوية.",
+    title: "المظلات",
+    description: "تنفيذ جميع أنواع المظلات بأحدث التصاميم",
     icon: Umbrella,
   },
   {
-    id: "srv-3",
-    title: "السواتر والبرجولات",
-    description: "حلول تظليل وخصوصية متكاملة تشمل السواتر الخشبية والحديدية والبرجولات الفاخرة.",
+    id: "srv-2",
+    title: "السواتر",
+    description: "تركيب السواتر بمختلف الخامات",
     icon: Fence,
   },
   {
+    id: "srv-3",
+    title: "برجولات وهناجر",
+    description: "تركيب البرجولات والهناجر بأحدث التصاميم",
+    icon: Building2,
+  },
+  {
     id: "srv-4",
-    title: "أعمال القرميد والترميم",
-    description: "تخصصنا في تركيب القرميد الوطني والايطالي مع تقديم خدمات ترميم شاملة للمباني.",
+    title: "أعمال القرميد والديكورات الخارجية",
+    description: "تركيب القرميد والديكورات الخارجية بأحدث التصاميم",
     icon: Hammer,
   },
   {
     id: "srv-5",
-    title: "حلول عوازل الأسطح",
-    description: "حماية منزلك من تسربات المياه والحرارة بأحدث تقنيات العزل المائي والحراري المعتمدة.",
-    icon: Droplets,
+    title: "المقاولات العامة",
+    description: "تنفيذ جميع أعمال المقاولات العامة بأحدث التصاميم",
+    icon: Building2,
   },
   {
     id: "srv-6",
-    title: "الصيانة الدورية",
+    title: "الترميم والصيانة",
     description: "عقود صيانة وقائية ودورية للمنشآت والمظلات لضمان استدامتها وسلامتها الدائمة.",
     icon: Wrench,
+  },
+  {
+    id: "srv-7",
+    title: "حلول الساندوتش بانل الحديثة",
+    description: "تركيب الساندوتش بانل بأحدث التصاميم",
+    icon: Hammer,
   },
 ];

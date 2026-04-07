@@ -39,7 +39,7 @@ export const QUICK_LINKS = NAVIGATION_LINKS.filter(l => !l.href.startsWith("/#")
 
 ```tsx
 // ❌ الاسم مكتوب، ويختلف عن SITE_INFO.name في اللوغو!
-<span>جواهر للمقاولات العامة</span>
+<span>جوهرة الظل للمقاولات العامة</span>
 
 // ✅
 import { SITE_INFO } from "@/src/lib/constants";
@@ -52,8 +52,8 @@ import { SITE_INFO } from "@/src/lib/constants";
 **الملف:** `src/lib/constants.ts`
 
 ```ts
-name: "جواهر للمقاولات العامة",
-fullName: "جواهر للمقاولات العامة", // ❌ نفس القيمة
+name: "جوهرة الظل للمقاولات العامة",
+fullName: "جوهرة الظل للمقاولات العامة", // ❌ نفس القيمة
 ```
 
 ---
@@ -395,7 +395,7 @@ divs التدرجات والـ decorative overlays في Footer وHero تحتاج
 // أضف في كل page.tsx
 export const metadata: Metadata = {
   title: "من نحن",
-  description: "تعرف على شركة جواهر للمقاولات العامة وخبرتها في المنطقة الشرقية",
+  description: "تعرف على شركة جوهرة الظل للمقاولات العامة وخبرتها في المنطقة الشرقية",
 };
 ```
 
@@ -436,7 +436,7 @@ twitter: { card: "summary_large_image", images: ["/images/og-image.jpg"] },
 <Image alt={field.title} />
 
 // ✅ أفضل لـ SEO
-<Image alt={`خدمة ${field.title} - جواهر للمقاولات`} />
+<Image alt={`خدمة ${field.title} - جوهرة الظل للمقاولات`} />
 ```
 
 ---
