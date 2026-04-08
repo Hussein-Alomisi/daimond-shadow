@@ -33,9 +33,9 @@ export function Navbar() {
             {/* Logo */}
             <Link
               href="/"
-              className="text-2xl font-bold font-cairo text-white hover:text-gold transition-colors duration-300"
+              className="text-xl md:text-2xl font-bold font-cairo text-white hover:text-gold transition-colors duration-300 leading-tight"
             >
-              {SITE_INFO.name}
+              جوهرة الظل للمقاولات<br />العامة
             </Link>
 
             {/* Desktop Navigation */}
@@ -119,7 +119,9 @@ export function Navbar() {
               className="fixed top-0 right-0 bottom-0 w-3/4 max-w-sm bg-primary border-l border-gold/20 z-50 lg:hidden flex flex-col shadow-2xl"
             >
               <div className="flex items-center justify-between p-6 border-b border-white/10">
-                <span className="text-xl font-bold text-gold">{SITE_INFO.name}</span>
+                <span className="text-xl font-bold text-gold leading-tight">
+                  جوهرة الظل للمقاولات<br />العامة
+                </span>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
                   aria-label="إغلاق القائمة"
