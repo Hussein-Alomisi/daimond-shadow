@@ -6,12 +6,14 @@ import type { Variants } from "framer-motion";
 interface ProjectCardProps {
   project: Project;
   variants?: Variants;
+  onClick?: () => void;
 }
 
-export function ProjectCard({ project, variants }: ProjectCardProps) {
+export function ProjectCard({ project, variants, onClick }: ProjectCardProps) {
   return (
     <MotionDiv
       variants={variants}
+      onClick={onClick}
       className="group relative h-[400px] w-full overflow-hidden rounded-lg shadow-md cursor-pointer border border-transparent transition-colors duration-500 hover:shadow-2xl hover:border-gold/30"
     >
       {/* Background Image */}
