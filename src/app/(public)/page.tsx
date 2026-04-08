@@ -4,6 +4,7 @@ import { ServicesSection } from "@/src/components/sections/ServicesSection";
 import { FieldsSection } from "@/src/components/sections/FieldsSection";
 import { ProjectsGrid } from "@/src/components/sections/ProjectsGrid";
 import { VisionMissionSection } from "@/src/components/sections/VisionMissionSection";
+import { WhyChooseUsSection } from "@/src/components/sections/WhyChooseUsSection";
 import { MOCK_PROJECTS } from "@/src/lib/mockData";
 import { Metadata } from "next";
 
@@ -21,6 +22,7 @@ export default function Home() {
       <ServicesSection />
       <VisionMissionSection />
       <ProjectsGrid projects={MOCK_PROJECTS} />
+      <WhyChooseUsSection />
     </>
   );
 }

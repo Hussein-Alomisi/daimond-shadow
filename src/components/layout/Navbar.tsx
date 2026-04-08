@@ -46,7 +46,7 @@ export function Navbar() {
                   <Link
                     key={link.label}
                     href={link.href}
-                    className={`text-base font-medium transition-all duration-300 relative group py-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] ${isActive ? "text-gold" : "text-white/90 hover:text-gold"
+                    className={`text-sm whitespace-nowrap font-medium transition-all duration-300 relative group py-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] ${isActive ? "text-gold" : "text-white/90 hover:text-gold"
                       }`}
                   >
                     {link.label}
