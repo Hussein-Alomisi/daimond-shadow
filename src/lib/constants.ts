@@ -7,14 +7,12 @@ export const SITE_INFO = {
 };
 
 export const NAVIGATION_LINKS = [
-  { label: "الرئيسية", href: "/" },
-  { label: "مقاول بناء", href: "/#fields-section" },
-  { label: "قرميد", href: "/#fields-section" },
-  { label: "ترميمات", href: "/#fields-section" },
-  { label: "عوازل أسطح", href: "/#fields-section" },
-  { label: "سواتر", href: "/#fields-section" },
-  { label: "ساندوتش بانل", href: "/#fields-section" },
-  { label: "برجولات", href: "/#fields-section" },
+  { label: "الرئيسية", href: "/#hero-section" },
+  { label: "مجالاتنا", href: "/#fields-section" },
+  { label: "من نحن", href: "/#about-section" },
+  { label: "خدماتنا", href: "/#services-section" },
+  { label: "رؤيتنا", href: "/#vision-mission" },
+  { label: "أعمالنا", href: "/#projects-section" },
   { label: "تواصل معنا", href: "/contact" },
 ];
 
@@ -23,6 +21,7 @@ export const QUICK_LINKS = [
   { label: "الرئيسية", href: "/" },
   { label: "من نحن", href: "/about" },
   { label: "خدماتنا", href: "/services" },
+  { label: "رؤيتنا", href: "/vision-mission" },
   { label: "مشاريعنا", href: "/projects" },
   { label: "تواصل معنا", href: "/contact" },
 ];

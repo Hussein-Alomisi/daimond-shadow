@@ -27,7 +27,7 @@ const staggerContainer: Variants = {
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-start overflow-hidden pt-20">
+    <section id="hero-section" className="relative min-h-screen flex items-center justify-start overflow-hidden pt-20">
 
       {/* Background Image Layer */}
       <div
