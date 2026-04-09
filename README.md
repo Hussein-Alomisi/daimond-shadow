@@ -40,3 +40,23 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 npx create-next-app@latest tashyed-alqwa
 <!-- run  -->
 npm run dev
+
+
+
+
+<!-- install prisma -->
+npm install prisma @prisma/client
+
+<!-- init prisma -->
+npx prisma init
+
+<!-- create migration (after any change in schema.prisma) or update database (after any change in schema.prisma) -->
+npx prisma migrate dev --name init
+
+
+<!-- generate prisma client (after any change in schema.prisma) -->
+npx prisma generate
+
+
+<!-- update database (after any change in schema.prisma) -->
+npx prisma db push

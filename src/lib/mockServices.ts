@@ -6,7 +6,6 @@ import {
   Droplets,
   Wrench
 } from "lucide-react";
-import { decodeReply } from "next/dist/server/app-render/entry-base";
 
 export interface Service {
   id: string;
