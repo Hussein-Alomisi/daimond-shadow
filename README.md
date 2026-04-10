@@ -43,7 +43,6 @@ npm run dev
 
 
 
-
 <!-- install prisma -->
 npm install prisma @prisma/client@5  <!-- this install version 5 currently  using it-->
 
@@ -60,3 +59,8 @@ npx prisma generate
 
 <!-- update database (after any change in schema.prisma) -->
 npx prisma db push
+
+
+<!-- fix blocked deploy in vercel cuz of user.email -->
+
+<!--  -->
