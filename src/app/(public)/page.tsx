@@ -5,7 +5,7 @@ import { FieldsSection } from "@/src/components/sections/FieldsSection";
 import { ProjectsGrid } from "@/src/components/sections/ProjectsGrid";
 import { VisionMissionSection } from "@/src/components/sections/VisionMissionSection";
 import { WhyChooseUsSection } from "@/src/components/sections/WhyChooseUsSection";
-import { MOCK_PROJECTS } from "@/src/lib/mockData";
+import { MOCK_PROJECTS } from "@/src/lib/mockProjects";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

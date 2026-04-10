@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { HeroBanner } from "@/src/components/ui/HeroBanner";
 import { ProjectsGrid } from "@/src/components/sections/ProjectsGrid";
-import { MOCK_PROJECTS } from "@/src/lib/mockData";
+import { MOCK_PROJECTS } from "@/src/lib/mockProjects";
 
 export const metadata: Metadata = {
   title: "مشاريعنا",

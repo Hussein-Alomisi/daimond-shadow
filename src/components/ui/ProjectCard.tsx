@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Project } from "@/src/lib/mockData";
+import { Project } from "@/src/lib/mockProjects";
 import { MotionDiv } from "./MotionDiv";
 import type { Variants } from "framer-motion";
 

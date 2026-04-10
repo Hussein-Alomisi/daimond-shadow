@@ -4,7 +4,7 @@ import { getFieldBySlug, fieldsData } from "@/src/lib/fieldsData";
 import { HeroBanner } from "@/src/components/ui/HeroBanner";
 import { ProjectsGrid } from "@/src/components/sections/ProjectsGrid";
 import { SITE_INFO } from "@/src/lib/constants";
-import type { Project } from "@/src/lib/mockData";
+import type { Project } from "@/src/lib/mockProjects";
 
 export async function generateMetadata({
   params,
@@ -68,11 +68,11 @@ export default async function FieldPage({
 
       <section className="py-24 px-6 bg-primary relative overflow-hidden" id="field-description">
         {/* Subtle decorative background gradient */}
-        <div 
+        <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-b from-primary via-secondary/40 to-primary pointer-events-none" 
+          className="absolute inset-0 bg-gradient-to-b from-primary via-secondary/40 to-primary pointer-events-none"
         />
-        
+
         <div className="container mx-auto max-w-4xl relative z-10 text-center">
           <div className="flex items-center justify-center gap-4 mb-6">
             <span className="w-12 h-[2px] bg-gold rounded block" />
@@ -86,8 +86,8 @@ export default async function FieldPage({
       </section>
 
       {mappedProjects.length > 0 && (
-        <ProjectsGrid 
-          projects={mappedProjects} 
+        <ProjectsGrid
+          projects={mappedProjects}
           title={`معرض صور ${field.title}`}
           subtitle={`تصفح أحدث وأفضل المشاريع التي نفذناها في مجال ${field.title}`}
         />

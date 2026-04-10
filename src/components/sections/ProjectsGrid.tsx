@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { MotionDiv } from "../ui/MotionDiv";
 import { ProjectCard } from "../ui/ProjectCard";
-import { Project } from "@/src/lib/mockData";
+import { Project } from "@/src/lib/mockProjects";
 import type { Variants } from "framer-motion";
 import { Lightbox } from "../ui/Lightbox";
 
@@ -67,10 +67,10 @@ export function ProjectsGrid({
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {projects.map((project, index) => (
-            <ProjectCard 
-              key={project.id} 
-              project={project} 
-              variants={cardReveal} 
+            <ProjectCard
+              key={project.id}
+              project={project}
+              variants={cardReveal}
               onClick={() => handleOpen(index)}
             />
           ))}
