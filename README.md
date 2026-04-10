@@ -45,7 +45,7 @@ npm run dev
 
 
 <!-- install prisma -->
-npm install prisma @prisma/client
+npm install prisma @prisma/client@5  <!-- this install version 5 currently  using it-->
 
 <!-- init prisma -->
 npx prisma init
