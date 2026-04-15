@@ -1,10 +1,10 @@
-import Image from "next/image";
-import { Project } from "@/src/lib/mockProjects";
+﻿import Image from "next/image";
+import type { ProjectSummary } from "@/src/models/project";
 import { MotionDiv } from "./MotionDiv";
 import type { Variants } from "framer-motion";
 
 interface ProjectCardProps {
-  project: Project;
+  project: ProjectSummary;
   variants?: Variants;
   onClick?: () => void;
 }
@@ -40,9 +40,11 @@ export function ProjectCard({ project, variants, onClick }: ProjectCardProps) {
       {/* Content */}
       <div className="absolute inset-0 p-6 flex flex-col justify-end">
         <div className="transform translate-y-6 opacity-80 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
-          <span className="text-gold font-semibold text-sm tracking-wider mb-2 block">
-            {project.category}
-          </span>
+          {project.category && (
+            <span className="text-gold font-semibold text-sm tracking-wider mb-2 block">
+              {project.category}
+            </span>
+          )}
           <h3 className="text-2xl font-bold text-white mb-2 leading-snug">
             {project.title}
           </h3>
@@ -75,3 +77,4 @@ export function ProjectCard({ project, variants, onClick }: ProjectCardProps) {
     </MotionDiv>
   );
 }
+

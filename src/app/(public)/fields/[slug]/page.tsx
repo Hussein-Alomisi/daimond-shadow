@@ -1,10 +1,10 @@
-import { notFound } from "next/navigation";
+﻿import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { getFieldBySlug, fieldsData } from "@/src/lib/fieldsData";
 import { HeroBanner } from "@/src/components/ui/HeroBanner";
 import { ProjectsGrid } from "@/src/components/sections/ProjectsGrid";
 import { SITE_INFO } from "@/src/lib/constants";
-import type { Project } from "@/src/lib/mockProjects";
+import type { ProjectSummary } from "@/src/models/project";
 
 export async function generateMetadata({
   params,
@@ -45,7 +45,7 @@ export default async function FieldPage({
   }
 
   // Map field images to the Project interface so we can seamlessly reuse the existing ProjectsGrid!
-  const mappedProjects: Project[] = field.images.map((img, index) => ({
+  const mappedProjects: ProjectSummary[] = field.images.map((img, index) => ({
     id: `${field.slug}-${index}`,
     title: `نموذج ${field.title} ${index + 1}`,
     category: field.title,
@@ -95,3 +95,4 @@ export default async function FieldPage({
     </>
   );
 }
+

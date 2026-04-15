@@ -1,9 +1,8 @@
-import {
+﻿import {
   Building2,
   Umbrella,
   Fence,
   Hammer,
-  Droplets,
   Wrench
 } from "lucide-react";
 
@@ -58,3 +57,5 @@ export const MOCK_SERVICES: Service[] = [
     icon: Hammer,
   },
 ];
+
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { MotionDiv } from "../ui/MotionDiv";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { SITE_INFO, NAVIGATION_LINKS, QUICK_LINKS } from "@/src/lib/constants";
 import { MOCK_FIELDS } from "@/src/lib/mockFields";
-import { FloatingButtons } from "../ui/FloatingButtons";
+
 import type { Transition } from "framer-motion";
 
 // ─────────────────────────────────────────────
@@ -299,3 +299,4 @@ export function Footer() {
     </>
   );
 }
+

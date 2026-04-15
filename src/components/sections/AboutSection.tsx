@@ -1,7 +1,7 @@
-import { MotionDiv } from "../ui/MotionDiv";
+﻿import { MotionDiv } from "../ui/MotionDiv";
 import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
-import { SITE_INFO } from "@/src/lib/constants";
+
 import type { Variants } from "framer-motion";
 
 const textVariants: Variants = {
@@ -116,3 +116,4 @@ export function AboutSection() {
     </section>
   );
 }
+

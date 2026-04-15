@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { HeroBanner } from "@/src/components/ui/HeroBanner";
 import { ProjectsGrid } from "@/src/components/sections/ProjectsGrid";
-import { MOCK_PROJECTS } from "@/src/lib/mockProjects";
+import { getProjects } from "@/src/server/projects/project.service";
 
 export const metadata: Metadata = {
   title: "مشاريعنا",
@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     "استعرض أحدث مشاريع جوهرة الظل للمقاولات العامة: مظلات، سواتر، برجولات، وإنشاءات معدنية في المنطقة الشرقية.",
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+
   return (
     <>
       <HeroBanner
@@ -23,10 +25,11 @@ export default function ProjectsPage() {
         ]}
       />
       <ProjectsGrid
-        projects={MOCK_PROJECTS}
+        projects={projects}
         title="جميع مشاريعنا"
         subtitle="نفخر بتقديم حلول هندسية متطورة تلبي طموحات عملائنا"
       />
     </>
   );
 }
+

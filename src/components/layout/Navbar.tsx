@@ -1,10 +1,10 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { NAVIGATION_LINKS, SITE_INFO } from "@/src/lib/constants";
+import { NAVIGATION_LINKS } from "@/src/lib/constants";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -209,3 +209,4 @@ export function Navbar() {
     </>
   );
 }
+

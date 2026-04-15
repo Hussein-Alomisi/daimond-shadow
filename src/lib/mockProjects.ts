@@ -1,12 +1,6 @@
-export interface Project {
-  id: string;
-  title: string;
-  category: string;
-  image: string;
-  location?: string;
-}
+﻿import type { ProjectSummary } from "@/src/models/project";
 
-export const MOCK_PROJECTS: Project[] = [
+export const MOCK_PROJECTS: ProjectSummary[] = [
   {
     id: "proj-1",
     title: "مظلات هرمية فاخرة",
@@ -94,3 +88,4 @@ export const MOCK_PROJECTS: Project[] = [
   },
 
 ];
+

@@ -1,14 +1,14 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { MotionDiv } from "../ui/MotionDiv";
 import { ProjectCard } from "../ui/ProjectCard";
-import { Project } from "@/src/lib/mockProjects";
+import type { ProjectSummary } from "@/src/models/project";
 import type { Variants } from "framer-motion";
 import { Lightbox } from "../ui/Lightbox";
 
 interface ProjectsGridProps {
-  projects: Project[];
+  projects: ProjectSummary[];
   title?: string;
   subtitle?: string;
 }
@@ -89,3 +89,4 @@ export function ProjectsGrid({
     </section>
   );
 }
+

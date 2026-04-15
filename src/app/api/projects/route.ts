@@ -1,27 +1,51 @@
-import { prisma } from "@/src/lib/prisma";
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
+import { logError, logResponse } from "@/src/lib/logger";
+import {
+  createProject,
+  getProjects,
+} from "@/src/server/projects/project.service";
 
-// GET all projects
-export async function GET() {
-    const projects = await prisma.project.findMany({
-        orderBy: { createdAt: "desc" },
-    });
-
-    return NextResponse.json(projects);
+function isInvalidProjectInput(error: unknown): boolean {
+  return error instanceof Error && error.message === "INVALID_PROJECT_INPUT";
 }
 
-// POST create project
+export async function GET(req: Request) {
+  const start = Date.now();
+  const url = new URL(req.url).pathname;
+
+  try {
+    const projects = await getProjects();
+
+    logResponse(200, url, Date.now() - start);
+    return NextResponse.json(projects);
+  } catch (error) {
+    logError("API Error - GET Projects", error);
+    logResponse(500, url, Date.now() - start);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+}
+
 export async function POST(req: Request) {
+  const start = Date.now();
+  const url = new URL(req.url).pathname;
+
+  try {
     const body = await req.json();
+    const project = await createProject(body);
 
-    const project = await prisma.project.create({
-        data: {
-            title: body.title,
-            description: body.description,
-            image: body.image,
-            category: body.category,
-        },
-    });
+    logResponse(201, url, Date.now() - start);
+    return NextResponse.json(project, { status: 201 });
+  } catch (error) {
+    if (isInvalidProjectInput(error)) {
+      logResponse(400, url, Date.now() - start);
+      return NextResponse.json(
+        { error: "Invalid project payload" },
+        { status: 400 }
+      );
+    }
 
-    return NextResponse.json(project);
+    logError("API Error - POST Project", error);
+    logResponse(500, url, Date.now() - start);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
 }
