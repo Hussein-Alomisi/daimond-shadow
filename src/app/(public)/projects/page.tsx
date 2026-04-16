@@ -1,7 +1,7 @@
 ﻿import type { Metadata } from "next";
 import { HeroBanner } from "@/src/components/ui/HeroBanner";
 import { ProjectsGrid } from "@/src/components/sections/ProjectsGrid";
-import { getProjects } from "@/src/server/projects/project.service";
+import { getProjects } from "@/src/modules/projects/project.service";
 
 export const metadata: Metadata = {
   title: "مشاريعنا",

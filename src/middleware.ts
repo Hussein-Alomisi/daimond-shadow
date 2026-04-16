@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { logRequest } from "@/src/lib/logger";
+import { logRequest } from "@/src/lib/utils/logger";
 
 export async function middleware(request: NextRequest) {
     const url = request.nextUrl.pathname;

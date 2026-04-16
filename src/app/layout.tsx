@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Cairo } from "next/font/google";
 import "./globals.css";
-import { SITE_INFO } from "@/src/lib/constants";
+import { SITE_INFO } from "@/src/lib/config/constants";
 
 // The user requested weights up to 800
 const cairo = Cairo({

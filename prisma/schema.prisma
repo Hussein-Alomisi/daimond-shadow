@@ -20,3 +20,11 @@ model Project {
   category    String?
   createdAt   DateTime @default(now())
 }
+
+model Service {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  icon        String
+  createdAt   DateTime @default(now())
+}

@@ -1,6 +1,6 @@
 import { PageHeader } from "@/src/components/dashboard/PageHeader";
 import { ProjectForm } from "@/src/components/dashboard/ProjectForm";
-import { getProjectById } from "@/src/server/projects/project.service";
+import { getProjectById } from "@/src/modules/projects/project.service";
 import { notFound } from "next/navigation";
 
 interface EditProjectPageProps {

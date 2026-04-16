@@ -1,4 +1,4 @@
-﻿import type { ProjectSummary } from "@/src/models/project";
+﻿import type { ProjectSummary } from "@/src/models/projects/project";
 
 export const MOCK_PROJECTS: ProjectSummary[] = [
   {

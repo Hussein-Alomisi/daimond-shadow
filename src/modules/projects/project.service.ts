@@ -3,9 +3,9 @@ import type {
   ProjectDetails,
   ProjectSummary,
   ProjectWriteInput,
-} from "@/src/models/project";
-import { logError } from "@/src/lib/logger";
-import { MOCK_PROJECTS } from "@/src/lib/mockProjects";
+} from "@/src/models/projects/project";
+import { logError } from "@/src/lib/utils/logger";
+import { MOCK_PROJECTS } from "@/src/lib/data/mockProjects";
 import {
   mapProjectToDetails,
   mapProjectToSummary,

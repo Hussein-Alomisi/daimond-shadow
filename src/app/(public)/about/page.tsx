@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE_INFO } from "@/src/lib/constants";
+import { SITE_INFO } from "@/src/lib/config/constants";
 import { HeroBanner } from "@/src/components/ui/HeroBanner";
 import { AboutSection } from "@/src/components/sections/AboutSection";
 

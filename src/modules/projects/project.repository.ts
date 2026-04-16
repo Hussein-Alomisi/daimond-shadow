@@ -1,6 +1,6 @@
 ﻿import type { Project } from "@prisma/client";
-import type { ProjectWriteInput } from "@/src/models/project";
-import { prisma } from "@/src/lib/prisma";
+import type { ProjectWriteInput } from "@/src/models/projects/project";
+import { prisma } from "@/src/lib/db/prisma";
 
 export async function findProjects(): Promise<Project[]> {
   return prisma.project.findMany({

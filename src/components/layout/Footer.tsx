@@ -6,8 +6,8 @@ import {
   MapPin, Mail, Phone, MessageCircle,
   ChevronLeft, Users, Eye, Calendar, Building2,
 } from "lucide-react";
-import { SITE_INFO, NAVIGATION_LINKS, QUICK_LINKS } from "@/src/lib/constants";
-import { MOCK_FIELDS } from "@/src/lib/mockFields";
+import { SITE_INFO, NAVIGATION_LINKS, QUICK_LINKS } from "@/src/lib/config/constants";
+import { MOCK_FIELDS } from "@/src/lib/data/mockFields";
 
 import type { Transition } from "framer-motion";
 

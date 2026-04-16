@@ -1,6 +1,6 @@
 import { MotionDiv } from "../ui/MotionDiv";
 import { ServiceCard } from "../ui/ServiceCard";
-import { MOCK_SERVICES } from "@/src/lib/mockServices";
+import { getServices } from "@/src/modules/services/service.service";
 import type { Variants } from "framer-motion";
 
 const staggerGrid: Variants = {
@@ -13,7 +13,9 @@ const cardReveal: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-export function ServicesSection() {
+export async function ServicesSection() {
+  const services = await getServices();
+
   return (
     <section
       className="py-24 px-6 relative overflow-hidden bg-gradient-to-b from-background to-secondary/30"
@@ -48,7 +50,7 @@ export function ServicesSection() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {MOCK_SERVICES.map((service) => (
+          {services.map((service) => (
             <ServiceCard key={service.id} service={service} variants={cardReveal} />
           ))}
         </MotionDiv>

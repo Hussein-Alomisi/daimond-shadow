@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { HeroBanner } from "@/src/components/ui/HeroBanner";
-import { SITE_INFO } from "@/src/lib/constants";
+import { SITE_INFO } from "@/src/lib/config/constants";
 import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
 
 export const metadata: Metadata = {

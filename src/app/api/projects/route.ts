@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { logError, logResponse } from "@/src/lib/logger";
+import { logError, logResponse } from "@/src/lib/utils/logger";
 import {
   createProject,
   getProjects,
-} from "@/src/server/projects/project.service";
+} from "@/src/modules/projects/project.service";
 
 function isInvalidProjectInput(error: unknown): boolean {
   return error instanceof Error && error.message === "INVALID_PROJECT_INPUT";
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Image file is required" }, { status: 400 });
     }
 
-    const { saveImage } = await import("@/src/lib/file-upload");
+    const { saveImage } = await import("@/src/lib/utils/file-upload");
     const imagePath = await saveImage(imageFile);
 
     const project = await createProject({

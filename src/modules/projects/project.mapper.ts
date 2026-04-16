@@ -3,7 +3,7 @@ import type {
   ProjectDetails,
   ProjectSummary,
   ProjectWriteInput,
-} from "@/src/models/project";
+} from "@/src/models/projects/project";
 
 export function mapProjectToSummary(project: PrismaProject): ProjectSummary {
   return {

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { MotionDiv } from "../ui/MotionDiv";
 import { ProjectCard } from "../ui/ProjectCard";
-import type { ProjectSummary } from "@/src/models/project";
+import type { ProjectSummary } from "@/src/models/projects/project";
 import type { Variants } from "framer-motion";
 import { Lightbox } from "../ui/Lightbox";
 

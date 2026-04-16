@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MotionDiv } from "./MotionDiv";
-import { WorkField } from "@/src/lib/mockFields";
+import { WorkField } from "@/src/lib/data/mockFields";
 import type { Variants } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 
@@ -12,7 +12,7 @@ interface FieldCardProps {
 
 export function FieldCard({ field, variants }: FieldCardProps) {
   return (
-    <Link 
+    <Link
       href={`/fields/${field.slug}`}
       aria-label={`تصفح أعمال ${field.title}`}
       className="block w-full h-full"
@@ -40,7 +40,7 @@ export function FieldCard({ field, variants }: FieldCardProps) {
           aria-hidden="true"
           className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-all duration-500 ease-out group-hover:from-primary/95 group-hover:via-primary/80"
         />
-        
+
         {/* Shine Effect */}
         <div
           aria-hidden="true"
@@ -52,12 +52,12 @@ export function FieldCard({ field, variants }: FieldCardProps) {
           <h3 className="text-xl md:text-2xl font-black text-white drop-shadow-lg transition-all duration-500 ease-out group-hover:text-gold group-hover:-translate-y-6">
             {field.title}
           </h3>
-          
+
           <div
             aria-hidden="true"
             className="w-0 h-[2px] bg-gold mt-2 rounded-full transition-all duration-500 ease-out group-hover:w-12 group-hover:-translate-y-6"
           />
-          
+
           {/* Action Prompt (Visible on Hover) */}
           <div className="absolute bottom-6 flex items-center gap-2 text-white/90 font-bold text-sm opacity-0 translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0">
             <span>تصفح الأعمال</span>

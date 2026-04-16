@@ -1,10 +1,10 @@
 ﻿import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { getFieldBySlug, fieldsData } from "@/src/lib/fieldsData";
+import { getFieldBySlug, fieldsData } from "@/src/lib/data/fieldsData";
 import { HeroBanner } from "@/src/components/ui/HeroBanner";
 import { ProjectsGrid } from "@/src/components/sections/ProjectsGrid";
-import { SITE_INFO } from "@/src/lib/constants";
-import type { ProjectSummary } from "@/src/models/project";
+import { SITE_INFO } from "@/src/lib/config/constants";
+import type { ProjectSummary } from "@/src/models/projects/project";
 
 export async function generateMetadata({
   params,

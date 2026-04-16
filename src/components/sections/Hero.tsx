@@ -3,7 +3,7 @@
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { SITE_INFO } from "@/src/lib/constants";
+import { SITE_INFO } from "@/src/lib/config/constants";
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 30 },

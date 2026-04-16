@@ -1,5 +1,5 @@
 ﻿import Image from "next/image";
-import type { ProjectSummary } from "@/src/models/project";
+import type { ProjectSummary } from "@/src/models/projects/project";
 import { MotionDiv } from "./MotionDiv";
 import type { Variants } from "framer-motion";
 

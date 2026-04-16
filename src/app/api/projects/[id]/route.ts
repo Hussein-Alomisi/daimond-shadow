@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { logError, logResponse } from "@/src/lib/logger";
+import { logError, logResponse } from "@/src/lib/utils/logger";
 import {
   deleteProject,
   getProjectById,
   updateProject,
-} from "@/src/server/projects/project.service";
+} from "@/src/modules/projects/project.service";
 
 function isInvalidProjectInput(error: unknown): boolean {
   return error instanceof Error && error.message === "INVALID_PROJECT_INPUT";
@@ -45,7 +45,7 @@ export async function PUT(
   try {
     const { id } = await context.params;
     const formData = await req.formData();
-    
+
     const title = formData.get("title")?.toString();
     const description = formData.get("description")?.toString();
     const category = formData.get("category")?.toString();
@@ -57,7 +57,7 @@ export async function PUT(
     if (category !== undefined) updateData.category = category;
 
     if (imageFile instanceof File && imageFile.size > 0) {
-      const { saveImage } = await import("@/src/lib/file-upload");
+      const { saveImage } = await import("@/src/lib/utils/file-upload");
       updateData.image = await saveImage(imageFile);
     } else if (typeof imageFile === "string" && imageFile !== "") {
       updateData.image = imageFile;

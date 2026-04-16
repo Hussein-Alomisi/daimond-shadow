@@ -1,7 +1,7 @@
 import { MotionDiv } from "../ui/MotionDiv";
 import { FieldCard } from "../ui/FieldCard";
-import { MOCK_FIELDS } from "@/src/lib/mockFields";
-import { SITE_INFO } from "@/src/lib/constants";
+import { MOCK_FIELDS } from "@/src/lib/data/mockFields";
+import { SITE_INFO } from "@/src/lib/config/constants";
 import { CheckCircle2 } from "lucide-react";
 import type { Variants } from "framer-motion";
 

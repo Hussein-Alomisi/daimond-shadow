@@ -1,14 +1,18 @@
 import { MotionDiv } from "./MotionDiv";
-import { Service } from "@/src/lib/mockServices";
+import type { ServiceDetails } from "@/src/models/services/service";
+import * as LucideIcons from "lucide-react";
 import type { Variants } from "framer-motion";
 
 interface ServiceCardProps {
-  service: Service;
+  service: ServiceDetails;
   variants?: Variants;
 }
 
 export function ServiceCard({ service, variants }: ServiceCardProps) {
-  const Icon = service.icon;
+  // Dynamically resolve icon from string to Lucide component
+  const rawIcon = service.icon?.trim() || "HelpCircle";
+  const iconName = rawIcon.charAt(0).toUpperCase() + rawIcon.slice(1);
+  const Icon = (LucideIcons as any)[iconName] || LucideIcons.HelpCircle;
 
   return (
     <MotionDiv

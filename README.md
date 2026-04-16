@@ -53,6 +53,8 @@ npx prisma init
 npx prisma migrate dev --name init
 
 
+<!-- seed data using prisma -->
+npx prisma db seed
 <!-- generate prisma client (after any change in schema.prisma) -->
 npx prisma generate
 

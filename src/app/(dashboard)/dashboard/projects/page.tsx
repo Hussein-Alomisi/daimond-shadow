@@ -7,7 +7,7 @@ import { Plus, Pencil, Trash2, AlertCircle, Loader2 } from "lucide-react";
 import { PageHeader } from "@/src/components/dashboard/PageHeader";
 import { Table } from "@/src/components/dashboard/Table";
 import { SafeImage } from "@/src/components/ui/SafeImage";
-import type { ProjectSummary } from "@/src/models/project";
+import type { ProjectSummary } from "@/src/models/projects/project";
 
 export default function ProjectsDashboardPage() {
   const [projects, setProjects] = useState<ProjectSummary[]>([]);

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { NAVIGATION_LINKS } from "@/src/lib/constants";
+import { NAVIGATION_LINKS } from "@/src/lib/config/constants";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -183,8 +183,8 @@ export function Navbar() {
                       key={link.label}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`text-lg font-bold py-4 px-4 rounded-xl transition-all ${isActive 
-                        ? "bg-gold/10 text-gold shadow-sm" 
+                      className={`text-lg font-bold py-4 px-4 rounded-xl transition-all ${isActive
+                        ? "bg-gold/10 text-gold shadow-sm"
                         : "text-white/80 hover:bg-white/5 hover:text-white"
                         }`}
                     >
