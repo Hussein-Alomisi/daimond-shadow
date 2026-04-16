@@ -1,0 +1,58 @@
+You are a senior full-stack engineer.
+Project context:
+- Next.js 16 (App Router)
+- Prisma + MySQL
+- Dashboard already fetches projects from /api/projects
+TASK:
+Implement full CRUD functionality for Projects.
+1. API Routes (IMPORTANT)
+Enhance:
+/api/projects
+/api/projects/[id]
+Implement:
+- GET /api/projects → list all projects (already exists)
+- POST /api/projects → create project 
+- PUT /api/projects/[id] → update project
+- DELETE /api/projects/[id] → delete project
+Use Prisma:
+- prisma.project.create()
+- prisma.project.update()
+- prisma.project.delete()
+2. Add Project (Create)
+- Create form:
+  /dashboard/projects/new
+Fields:
+- title
+- category
+- image (string for now)
+- description (optional)
+- Submit → POST /api/projects
+3. Edit Project
+- Page:
+  /dashboard/projects/[id]
+- Load existing data
+- Update form
+- Submit → PUT /api/projects/[id]
+4. Delete Project
+- Add delete button in table
+- On click:
+  - confirm dialog
+  - call DELETE /api/projects/[id]
+5. UI Behavior
+- After add/edit/delete:
+  - refresh data
+  OR
+  - update state
+6. Error Handling
+- Show success message
+- Show error message
+7. Validation (Basic)- title required- category required
+8. Output
+Provide:
+- API routes
+- Add/Edit form
+- Delete logic
+Ensure:
+- Clean architecture
+- No Prisma in UI
+- Reusable code

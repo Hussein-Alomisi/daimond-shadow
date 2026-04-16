@@ -10,9 +10,11 @@ interface TableProps {
   columns: Column[];
   data: any[];
   isLoading?: boolean;
+  /** Custom actions renderer per row. Falls back to static placeholder if not provided. */
+  renderActions?: (row: any) => ReactNode;
 }
 
-export function Table({ columns, data, isLoading }: TableProps) {
+export function Table({ columns, data, isLoading, renderActions }: TableProps) {
   if (isLoading) {
     return (
       <div className="bg-white rounded-xl border border-slate-200 p-8 flex justify-center items-center">
@@ -32,7 +34,7 @@ export function Table({ columns, data, isLoading }: TableProps) {
                   {col.header}
                 </th>
               ))}
-              <th className="px-6 py-4 text-sm font-semibold text-slate-700 w-24">الإجراءات</th>
+              <th className="px-6 py-4 text-sm font-semibold text-slate-700 w-36">الإجراءات</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -45,10 +47,11 @@ export function Table({ columns, data, isLoading }: TableProps) {
                     </td>
                   ))}
                   <td className="px-6 py-4 text-sm">
-                    <div className="flex items-center gap-4">
-                      <button className="text-blue-600 hover:text-blue-800 transition-colors font-medium">تعديل</button>
-                      <button className="text-red-600 hover:text-red-800 transition-colors font-medium">حذف</button>
-                    </div>
+                    {renderActions ? (
+                      renderActions(row)
+                    ) : (
+                      <div className="flex items-center gap-4 text-slate-400 text-xs italic">—</div>
+                    )}
                   </td>
                 </tr>
               ))
