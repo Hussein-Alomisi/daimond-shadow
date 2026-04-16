@@ -60,14 +60,14 @@ export default function ServicesDashboardPage() {
       header: "الاسم",
       accessor: "title",
       render: (row: ServiceSummary) => (
-        <span className="font-semibold text-slate-800">{row.title}</span>
+        <span className="font-bold">{row.title}</span>
       ),
     },
     {
       header: "الأيقونة",
       accessor: "icon",
       render: (row: ServiceSummary) => (
-        <span className="text-sm font-mono bg-slate-100 px-2 py-1 rounded text-slate-600 border border-slate-200 block max-w-fit truncate">
+        <span className="text-sm font-mono bg-white/5 px-2 py-1 rounded-lg border border-white/10 block max-w-fit truncate">
           {row.icon}
         </span>
       ),
@@ -83,7 +83,7 @@ export default function ServicesDashboardPage() {
         />
         <Link
           href="/dashboard/services/new"
-          className="bg-gold hover:bg-gold-light text-slate-900 px-5 py-2.5 rounded-lg font-bold flex items-center justify-center gap-2 transition-all shadow-sm shadow-gold/20"
+          className="bg-gold hover:brightness-110 text-slate-900 px-5 py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-md shadow-gold/20"
         >
           <Plus size={18} />
           إضافة خدمة
@@ -108,7 +108,7 @@ export default function ServicesDashboardPage() {
           <div className="flex items-center gap-4">
             <Link
               href={`/dashboard/services/${row.id}`}
-              className="text-blue-600 hover:text-blue-800 transition-colors flex items-center gap-1.5 font-medium bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-md"
+              className="text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1.5 font-bold bg-blue-500/10 hover:bg-blue-500/20 px-4 py-2 rounded-xl"
               title="تعديل"
             >
               <Pencil size={14} />
@@ -117,7 +117,7 @@ export default function ServicesDashboardPage() {
             <button
               onClick={() => handleDelete(row.id)}
               disabled={deletingId === row.id}
-              className="text-red-600 hover:text-red-800 transition-colors flex items-center gap-1.5 font-medium bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-md disabled:opacity-50"
+              className="text-red-400 hover:text-red-300 transition-colors flex items-center gap-1.5 font-bold bg-red-500/10 hover:bg-red-500/20 px-4 py-2 rounded-xl disabled:opacity-50"
               title="حذف"
             >
               {deletingId === row.id ? (

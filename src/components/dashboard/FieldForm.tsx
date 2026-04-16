@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { Loader2, ImagePlus, X } from "lucide-react";
 import { SafeImage } from "@/src/components/ui/SafeImage";
 
 interface FieldFormData {
@@ -22,7 +22,7 @@ interface FieldFormProps {
 
 export function FieldForm({ initialData, isEditing = false }: FieldFormProps) {
   const router = useRouter();
-  
+
   const [form, setForm] = useState<FieldFormData>({
     title: initialData?.title || "",
     slug: initialData?.slug || "",
@@ -34,6 +34,9 @@ export function FieldForm({ initialData, isEditing = false }: FieldFormProps) {
   });
 
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  
   const [errors, setErrors] = useState<Partial<Record<keyof FieldFormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
@@ -64,8 +67,19 @@ export function FieldForm({ initialData, isEditing = false }: FieldFormProps) {
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0] || null;
     setImageFile(file);
-    if (errors.coverImage && file) {
-      setErrors((prev) => ({ ...prev, coverImage: undefined }));
+    if (file) {
+      setPreviewUrl(URL.createObjectURL(file));
+      if (errors.coverImage) {
+        setErrors((prev) => ({ ...prev, coverImage: undefined }));
+      }
+    }
+  }
+
+  function clearImageSelection() {
+    setImageFile(null);
+    setPreviewUrl(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
     }
   }
 
@@ -77,7 +91,7 @@ export function FieldForm({ initialData, isEditing = false }: FieldFormProps) {
     if (!form.aboutTitle.trim()) newErrors.aboutTitle = "هذا الحقل مطلوب";
     if (!form.aboutDescription.trim()) newErrors.aboutDescription = "هذا الحقل مطلوب";
     if (!form.galleryTitle.trim()) newErrors.galleryTitle = "هذا الحقل مطلوب";
-    
+
     if (!imageFile && !form.coverImage.trim()) {
       newErrors.coverImage = "الصورة مطلوبة";
     }
@@ -104,7 +118,7 @@ export function FieldForm({ initialData, isEditing = false }: FieldFormProps) {
       formData.append("aboutTitle", form.aboutTitle);
       formData.append("aboutDescription", form.aboutDescription);
       formData.append("galleryTitle", form.galleryTitle);
-      
+
       if (imageFile) {
         formData.append("coverImage", imageFile);
       } else if (isEditing && form.coverImage) {
@@ -135,14 +149,13 @@ export function FieldForm({ initialData, isEditing = false }: FieldFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="bg-white rounded-xl border border-slate-200 shadow-sm p-8 max-w-4xl">
+    <form onSubmit={handleSubmit} noValidate className="bg-secondary rounded-2xl border border-white/10 shadow-xl p-6 md:p-8 max-w-4xl">
       {feedback && (
         <div
-          className={`mb-6 px-4 py-3 rounded-lg text-sm font-medium border ${
-            feedback.type === "success"
-              ? "bg-green-50 border-green-200 text-green-700"
-              : "bg-red-50 border-red-200 text-red-600"
-          }`}
+          className={`mb-8 px-5 py-4 rounded-xl text-sm font-medium border ${feedback.type === "success"
+              ? "bg-green-500/10 border-green-500/20 text-green-400"
+              : "bg-red-500/10 border-red-500/20 text-red-400"
+            }`}
         >
           {feedback.message}
         </div>
@@ -150,20 +163,20 @@ export function FieldForm({ initialData, isEditing = false }: FieldFormProps) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="md:col-span-2">
-          <label className="block text-sm font-semibold text-slate-700 mb-1">
+          <label className="block text-sm font-bold text-white mb-2">
             عنوان المجال <span className="text-red-500">*</span>
           </label>
           <input
             name="title"
             value={form.title}
             onChange={handleChange}
-            className={`w-full px-4 py-2 border rounded-lg ${errors.title ? "border-red-400" : "border-slate-200"}`}
+            className={`w-full px-4 h-12 border rounded-xl bg-primary text-white placeholder-white/30 transition-all outline-none focus:ring-2 focus:ring-gold/30 ${errors.title ? "border-red-400 focus:border-red-400" : "border-white/10 focus:border-gold"}`}
           />
-          {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title}</p>}
+          {errors.title && <p className="text-red-400 text-xs mt-2">{errors.title}</p>}
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">
+          <label className="block text-sm font-bold text-white mb-2">
             الرابط اللطيف (Slug) <span className="text-red-500">*</span>
           </label>
           <input
@@ -171,31 +184,81 @@ export function FieldForm({ initialData, isEditing = false }: FieldFormProps) {
             value={form.slug}
             onChange={handleChange}
             dir="ltr"
-            className={`w-full px-4 py-2 border rounded-lg text-left ${errors.slug ? "border-red-400" : "border-slate-200"}`}
+            className={`w-full px-4 h-12 border rounded-xl bg-primary text-white placeholder-white/30 transition-all outline-none focus:ring-2 focus:ring-gold/30 text-left ${errors.slug ? "border-red-400 focus:border-red-400" : "border-white/10 focus:border-gold"}`}
           />
-          {errors.slug && <p className="text-red-500 text-xs mt-1">{errors.slug}</p>}
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">
-            صورة الغلاف <span className="text-red-500">*</span>
-          </label>
-          {isEditing && form.coverImage && !imageFile && (
-            <div className="mb-2 w-16 h-16 relative rounded overflow-hidden">
-              <SafeImage src={form.coverImage} alt="Cover" fill className="object-cover" />
-            </div>
-          )}
-          <input
-            type="file"
-            accept="image/jpeg, image/png, image/webp"
-            onChange={handleFileChange}
-            className="w-full text-sm"
-          />
-          {errors.coverImage && <p className="text-red-500 text-xs mt-1">{errors.coverImage}</p>}
+          {errors.slug && <p className="text-red-400 text-xs mt-2">{errors.slug}</p>}
         </div>
 
         <div className="md:col-span-2">
-          <label className="block text-sm font-semibold text-slate-700 mb-1">
+          <label className="block text-sm font-bold text-white mb-2">
+            صورة الغلاف <span className="text-red-500">*</span>
+          </label>
+          <div className="flex flex-col sm:flex-row gap-6 items-start">
+            {/* Current or Preview Image */}
+            <div className="relative w-full sm:w-64 aspect-[4/3] rounded-xl overflow-hidden border border-white/10 bg-primary flex-shrink-0 group">
+              {previewUrl || form.coverImage ? (
+                <SafeImage
+                  src={previewUrl || form.coverImage}
+                  alt="Cover Preview"
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <div className="w-full h-full flex justify-center items-center text-white/30 text-sm">
+                  لا توجد صورة
+                </div>
+              )}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                <span className="text-white text-xs font-bold">معاينة الصورة</span>
+              </div>
+            </div>
+
+            {/* Upload Controls */}
+            <div className="flex-1 w-full flex flex-col gap-3">
+              <p className="text-xs text-white/40">
+                اختر صورة غلاف. يفضل استخدام دقة عالية (مستطيلة 4:3), امتداد webp, jpg, png، وأقصى حجم 2MB.
+              </p>
+
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="bg-primary hover:brightness-125 text-white border border-white/10 px-5 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2"
+                >
+                  <ImagePlus size={16} />
+                  اختيار صورة
+                </button>
+                {previewUrl && (
+                  <button
+                    type="button"
+                    onClick={clearImageSelection}
+                    className="text-red-400 hover:text-red-300 hover:bg-red-500/10 px-4 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-1"
+                  >
+                    <X size={16} />
+                    إلغاء التحديد
+                  </button>
+                )}
+              </div>
+              {imageFile && (
+                <p className="text-xs font-bold text-green-400 truncate max-w-full">
+                  الملف المحدد: {imageFile.name}
+                </p>
+              )}
+
+              <input
+                type="file"
+                ref={fileInputRef}
+                accept="image/jpeg, image/png, image/webp"
+                onChange={handleFileChange}
+                className="hidden"
+              />
+            </div>
+          </div>
+          {errors.coverImage && <p className="text-red-400 text-xs mt-2">{errors.coverImage}</p>}
+        </div>
+
+        <div className="md:col-span-2">
+          <label className="block text-sm font-bold text-white mb-2">
             الوصف الرئيسي <span className="text-red-500">*</span>
           </label>
           <textarea
@@ -203,39 +266,39 @@ export function FieldForm({ initialData, isEditing = false }: FieldFormProps) {
             value={form.mainDescription}
             onChange={handleChange}
             rows={4}
-            className={`w-full px-4 py-2 border rounded-lg ${errors.mainDescription ? "border-red-400" : "border-slate-200"}`}
+            className={`w-full px-4 py-3 border rounded-xl bg-primary text-white placeholder-white/30 transition-all outline-none focus:ring-2 focus:ring-gold/30 ${errors.mainDescription ? "border-red-400 focus:border-red-400" : "border-white/10 focus:border-gold"}`}
           />
-          {errors.mainDescription && <p className="text-red-500 text-xs mt-1">{errors.mainDescription}</p>}
+          {errors.mainDescription && <p className="text-red-400 text-xs mt-2">{errors.mainDescription}</p>}
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">
+          <label className="block text-sm font-bold text-white mb-2">
             عنوان قسم &quot;عن المجال&quot; <span className="text-red-500">*</span>
           </label>
           <input
             name="aboutTitle"
             value={form.aboutTitle}
             onChange={handleChange}
-            className={`w-full px-4 py-2 border rounded-lg ${errors.aboutTitle ? "border-red-400" : "border-slate-200"}`}
+            className={`w-full px-4 h-12 border rounded-xl bg-primary text-white placeholder-white/30 transition-all outline-none focus:ring-2 focus:ring-gold/30 ${errors.aboutTitle ? "border-red-400 focus:border-red-400" : "border-white/10 focus:border-gold"}`}
           />
-          {errors.aboutTitle && <p className="text-red-500 text-xs mt-1">{errors.aboutTitle}</p>}
+          {errors.aboutTitle && <p className="text-red-400 text-xs mt-2">{errors.aboutTitle}</p>}
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">
+          <label className="block text-sm font-bold text-white mb-2">
             عنوان قسم المعرض <span className="text-red-500">*</span>
           </label>
           <input
             name="galleryTitle"
             value={form.galleryTitle}
             onChange={handleChange}
-            className={`w-full px-4 py-2 border rounded-lg ${errors.galleryTitle ? "border-red-400" : "border-slate-200"}`}
+            className={`w-full px-4 h-12 border rounded-xl bg-primary text-white placeholder-white/30 transition-all outline-none focus:ring-2 focus:ring-gold/30 ${errors.galleryTitle ? "border-red-400 focus:border-red-400" : "border-white/10 focus:border-gold"}`}
           />
-          {errors.galleryTitle && <p className="text-red-500 text-xs mt-1">{errors.galleryTitle}</p>}
+          {errors.galleryTitle && <p className="text-red-400 text-xs mt-2">{errors.galleryTitle}</p>}
         </div>
 
         <div className="md:col-span-2">
-          <label className="block text-sm font-semibold text-slate-700 mb-1">
+          <label className="block text-sm font-bold text-white mb-2">
             وصف قسم &quot;عن المجال&quot; <span className="text-red-500">*</span>
           </label>
           <textarea
@@ -243,25 +306,25 @@ export function FieldForm({ initialData, isEditing = false }: FieldFormProps) {
             value={form.aboutDescription}
             onChange={handleChange}
             rows={4}
-            className={`w-full px-4 py-2 border rounded-lg ${errors.aboutDescription ? "border-red-400" : "border-slate-200"}`}
+            className={`w-full px-4 py-3 border rounded-xl bg-primary text-white placeholder-white/30 transition-all outline-none focus:ring-2 focus:ring-gold/30 ${errors.aboutDescription ? "border-red-400 focus:border-red-400" : "border-white/10 focus:border-gold"}`}
           />
-          {errors.aboutDescription && <p className="text-red-500 text-xs mt-1">{errors.aboutDescription}</p>}
+          {errors.aboutDescription && <p className="text-red-400 text-xs mt-2">{errors.aboutDescription}</p>}
         </div>
       </div>
 
-      <div className="mt-8 flex gap-4">
+      <div className="mt-8 pt-8 border-t border-white/10 flex gap-4">
         <button
           type="submit"
           disabled={isSubmitting}
-          className="bg-gold hover:bg-gold-light text-slate-900 px-6 py-2 rounded-lg font-bold flex items-center gap-2"
+          className="bg-gold hover:brightness-110 text-slate-900 px-8 py-3 rounded-xl font-bold flex items-center gap-2 transition-all shadow-md shadow-gold/20 disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {isSubmitting && <Loader2 size={16} className="animate-spin" />}
+          {isSubmitting && <Loader2 size={18} className="animate-spin" />}
           حفظ
         </button>
         <button
           type="button"
           onClick={() => router.push("/dashboard/fields")}
-          className="px-6 py-2 border border-slate-200 text-slate-600 rounded-lg"
+          className="px-8 py-3 border border-gold text-gold rounded-xl hover:bg-gold/10 font-bold transition-all disabled:opacity-60"
         >
           إلغاء
         </button>

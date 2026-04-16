@@ -9,7 +9,7 @@ export default function HeroSettingsPage() {
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
   const [currentImage, setCurrentImage] = useState("");
-  
+
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -29,7 +29,7 @@ export default function HeroSettingsPage() {
       const res = await fetch("/api/hero");
       if (!res.ok) throw new Error("فشل في جلب البيانات");
       const data = await res.json();
-      
+
       setTitle(data.title || "");
       setSubtitle(data.subtitle || "");
       setCurrentImage(data.image || "");
@@ -116,14 +116,13 @@ export default function HeroSettingsPage() {
         subtitle="تعديل الشاشة الرئيسية للموقع بصورتها وعنوانها البارز."
       />
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-slate-200 shadow-sm p-8 max-w-3xl text-slate-800">
+      <form onSubmit={handleSubmit} className="bg-secondary rounded-2xl border border-white/10 shadow-xl p-6 md:p-8 max-w-3xl">
         {feedback && (
           <div
-            className={`mb-6 px-4 py-3 rounded-lg text-sm font-medium border ${
-              feedback.type === "success"
-                ? "bg-green-50 border-green-200 text-green-700"
-                : "bg-red-50 border-red-200 text-red-600"
-            }`}
+            className={`mb-8 px-5 py-4 rounded-xl text-sm font-medium border ${feedback.type === "success"
+                ? "bg-green-500/10 border-green-500/20 text-green-400"
+                : "bg-red-500/10 border-red-500/20 text-red-400"
+              }`}
           >
             {feedback.message}
           </div>
@@ -132,7 +131,7 @@ export default function HeroSettingsPage() {
         <div className="space-y-6">
           {/* Title Field */}
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">
+            <label className="block text-sm font-bold text-white mb-2">
               العنوان الرئيسي <span className="text-red-500">*</span>
             </label>
             <input
@@ -140,13 +139,13 @@ export default function HeroSettingsPage() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="مثال: نبني المستقبل بجودة وإتقان"
-              className="w-full px-4 py-2.5 border border-slate-200 rounded-lg text-sm transition-colors outline-none focus:border-gold focus:ring-2 focus:ring-gold/30"
+              className="w-full px-4 h-12 border border-white/10 rounded-xl text-sm bg-primary text-white placeholder-white/30 transition-all outline-none focus:border-gold focus:ring-2 focus:ring-gold/30"
             />
           </div>
 
           {/* Subtitle Field */}
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">
+            <label className="block text-sm font-bold text-white mb-2">
               النص الوصفي الفرعي
             </label>
             <textarea
@@ -154,19 +153,19 @@ export default function HeroSettingsPage() {
               rows={4}
               onChange={(e) => setSubtitle(e.target.value)}
               placeholder="اكتب وصفاً معبراً عن الشركة..."
-              className="w-full px-4 py-2.5 border border-slate-200 rounded-lg text-sm transition-colors outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 resize-none"
+              className="w-full px-4 py-3 border border-white/10 rounded-xl text-sm bg-primary text-white placeholder-white/30 transition-all outline-none focus:border-gold focus:ring-2 focus:ring-gold/30 resize-none"
             />
           </div>
 
           {/* Image Upload Field */}
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
+            <label className="block text-sm font-bold text-white mb-2">
               صورة الخلفية الرئيسية
             </label>
-            
+
             <div className="flex flex-col sm:flex-row gap-6 items-start">
               {/* Current or Preview Image */}
-              <div className="relative w-full sm:w-64 aspect-video rounded-lg overflow-hidden border border-slate-200 bg-slate-50 flex-shrink-0 group">
+              <div className="relative w-full sm:w-64 aspect-video rounded-xl overflow-hidden border border-white/10 bg-primary flex-shrink-0 group">
                 <Image
                   src={previewUrl || currentImage || "/images/hero/hero-bg.jpg"}
                   alt="Hero Preview"
@@ -174,21 +173,21 @@ export default function HeroSettingsPage() {
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                  <span className="text-white text-xs font-medium">معاينة الصورة</span>
+                  <span className="text-white text-xs font-bold">معاينة الصورة</span>
                 </div>
               </div>
 
               {/* Upload Controls */}
               <div className="flex-1 w-full flex flex-col gap-3">
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-white/40">
                   اختر صورة جديدة لاستبدال الصورة الحالية. (يفضل أن تكون الصورة بعرض 1920 بكسل وجودة عالية، يفضل امتداد webp أو jpg)
                 </p>
-                
+
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+                    className="bg-primary hover:brightness-125 text-white border border-white/10 px-5 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2"
                   >
                     <ImagePlus size={16} />
                     اختيار صورة
@@ -197,7 +196,7 @@ export default function HeroSettingsPage() {
                     <button
                       type="button"
                       onClick={clearImageSelection}
-                      className="text-red-500 hover:text-red-600 hover:bg-red-50 px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1"
+                      className="text-red-400 hover:text-red-300 hover:bg-red-500/10 px-4 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-1"
                     >
                       <X size={16} />
                       إلغاء التحديد
@@ -205,11 +204,11 @@ export default function HeroSettingsPage() {
                   )}
                 </div>
                 {imageFile && (
-                  <p className="text-xs font-medium text-green-600 truncate max-w-full">
+                  <p className="text-xs font-bold text-green-400 truncate max-w-full">
                     الملف المحدد: {imageFile.name}
                   </p>
                 )}
-                
+
                 <input
                   type="file"
                   ref={fileInputRef}
@@ -222,13 +221,13 @@ export default function HeroSettingsPage() {
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-slate-100 flex justify-start">
+        <div className="mt-8 pt-8 border-t border-white/10 flex justify-start">
           <button
             type="submit"
             disabled={isSaving}
-            className="bg-gold hover:bg-gold-light text-slate-900 px-8 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-all shadow-md shadow-gold/20 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="bg-gold hover:brightness-110 text-slate-900 px-8 py-3 rounded-xl font-bold flex items-center gap-2 transition-all shadow-md shadow-gold/20 disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            {isSaving && <Loader2 size={16} className="animate-spin" />}
+            {isSaving && <Loader2 size={18} className="animate-spin" />}
             حفظ التعديلات
           </button>
         </div>

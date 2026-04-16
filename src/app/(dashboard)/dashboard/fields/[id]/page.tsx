@@ -57,8 +57,8 @@ export default function EditFieldPage({ params }: { params: Promise<{ id: string
       </div>
 
       <div className="border-t border-slate-200 pt-8 mt-12">
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">إدارة معرض الصور</h2>
-        <p className="text-slate-500 mb-6 text-sm">
+        <h2 className="text-2xl font-bold mb-2">إدارة معرض الصور</h2>
+        <p className="text-slate-500 mb-6">
           أضف أو عدل أو احذف الصور الخاصة بهذا المجال
         </p>
         <GalleryManagement fieldId={field.id} initialImages={field.images} />

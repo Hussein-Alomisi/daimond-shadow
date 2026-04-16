@@ -70,14 +70,14 @@ export default function ProjectsDashboardPage() {
       header: "عنوان المشروع",
       accessor: "title",
       render: (row: ProjectSummary) => (
-        <span className="font-bold text-slate-900">{row.title}</span>
+        <span className="font-bold">{row.title}</span>
       ),
     },
     {
       header: "التصنيف",
       accessor: "category",
       render: (row: ProjectSummary) => (
-        <span className="bg-slate-100 text-slate-600 px-2 py-1 rounded text-xs">
+        <span className="bg-white/5 border border-white/10 text-white/60 px-2.5 py-1 rounded-lg text-xs font-bold">
           {row.category || "غير محدد"}
         </span>
       ),
@@ -88,21 +88,21 @@ export default function ProjectsDashboardPage() {
   function renderActions(row: ProjectSummary) {
     const isDeleting = deletingId === row.id;
     return (
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         <Link
           href={`/dashboard/projects/${row.id}`}
-          className="flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
+          className="text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1.5 font-bold bg-blue-500/10 hover:bg-blue-500/20 px-4 py-2 rounded-xl"
         >
           <Pencil size={14} />
-          تعديل
+          <span className="text-xs">تعديل</span>
         </Link>
         <button
           onClick={() => handleDelete(row)}
           disabled={isDeleting}
-          className="flex items-center gap-1 text-red-500 hover:text-red-700 font-medium text-sm transition-colors disabled:opacity-50"
+          className="text-red-400 hover:text-red-300 transition-colors flex items-center gap-1.5 font-bold bg-red-500/10 hover:bg-red-500/20 px-4 py-2 rounded-xl disabled:opacity-50"
         >
           {isDeleting ? <Loader2 size={14} className="animate-spin" /> : <Trash2 size={14} />}
-          حذف
+          <span className="text-xs">حذف</span>
         </button>
       </div>
     );
@@ -116,7 +116,7 @@ export default function ProjectsDashboardPage() {
         action={
           <Link
             href="/dashboard/projects/new"
-            className="bg-gold hover:bg-gold-light text-slate-900 px-4 py-2 rounded-lg font-bold flex items-center gap-2 transition-all shadow-md shadow-gold/20"
+            className="bg-gold hover:brightness-110 text-slate-900 px-5 py-2.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-md shadow-gold/20"
           >
             <Plus size={20} />
             <span>إضافة مشروع جديد</span>

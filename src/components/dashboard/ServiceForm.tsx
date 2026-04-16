@@ -88,13 +88,13 @@ export function ServiceForm({ defaultValues, serviceId }: ServiceFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="bg-white rounded-xl border border-slate-200 shadow-sm p-8 max-w-2xl">
+    <form onSubmit={handleSubmit} noValidate className="bg-secondary rounded-2xl border border-white/10 shadow-xl p-6 md:p-8 max-w-2xl">
       {feedback && (
         <div
-          className={`mb-6 px-4 py-3 rounded-lg text-sm font-medium border ${
+          className={`mb-8 px-5 py-4 rounded-xl text-sm font-medium border ${
             feedback.type === "success"
-              ? "bg-green-50 border-green-200 text-green-700"
-              : "bg-red-50 border-red-200 text-red-600"
+              ? "bg-green-500/10 border-green-500/20 text-green-400"
+              : "bg-red-500/10 border-red-500/20 text-red-400"
           }`}
         >
           {feedback.message}
@@ -104,7 +104,7 @@ export function ServiceForm({ defaultValues, serviceId }: ServiceFormProps) {
       <div className="space-y-6">
         {/* Title */}
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">
+          <label className="block text-sm font-bold text-white mb-2">
             اسم الخدمة <span className="text-red-500">*</span>
           </label>
           <input
@@ -113,16 +113,16 @@ export function ServiceForm({ defaultValues, serviceId }: ServiceFormProps) {
             value={form.title}
             onChange={handleChange}
             placeholder="مثال: البناء العظم"
-            className={`w-full px-4 py-2.5 border rounded-lg text-sm transition-colors outline-none text-slate-900 focus:ring-2 focus:ring-gold/30 ${
-              errors.title ? "border-red-400 bg-red-50" : "border-slate-200 focus:border-gold"
+            className={`w-full px-4 h-12 border rounded-xl bg-primary text-white placeholder-white/30 transition-all outline-none focus:ring-2 focus:ring-gold/30 ${
+              errors.title ? "border-red-400 focus:border-red-400" : "border-white/10 focus:border-gold"
             }`}
           />
-          {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title}</p>}
+          {errors.title && <p className="text-red-400 text-xs mt-2">{errors.title}</p>}
         </div>
 
         {/* Icon */}
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">
+          <label className="block text-sm font-bold text-white mb-2">
             الأيقونة <span className="text-red-500">*</span>
           </label>
           <input
@@ -130,20 +130,20 @@ export function ServiceForm({ defaultValues, serviceId }: ServiceFormProps) {
             name="icon"
             value={form.icon}
             onChange={handleChange}
-            placeholder="مثال: fas fa-hammer أو lucide className"
-            className={`w-full px-4 py-2.5 border rounded-lg text-sm transition-colors outline-none text-slate-900 focus:ring-2 focus:ring-gold/30 ${
-              errors.icon ? "border-red-400 bg-red-50" : "border-slate-200 focus:border-gold"
+            placeholder='مثال: fas fa-hammer أو lucide className'
+            className={`w-full px-4 h-12 border rounded-xl bg-primary text-white placeholder-white/30 transition-all outline-none focus:ring-2 focus:ring-gold/30 ${
+              errors.icon ? "border-red-400 focus:border-red-400" : "border-white/10 focus:border-gold"
             }`}
           />
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-white/40 mt-2">
             يرجى إدخال اسم أيقونة دلالية (مثال: "hammer", "building", "wrench")
           </p>
-          {errors.icon && <p className="text-red-500 text-xs mt-1">{errors.icon}</p>}
+          {errors.icon && <p className="text-red-400 text-xs mt-2">{errors.icon}</p>}
         </div>
 
         {/* Description */}
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">
+          <label className="block text-sm font-bold text-white mb-2">
             الوصف <span className="text-red-500">*</span>
           </label>
           <textarea
@@ -152,28 +152,28 @@ export function ServiceForm({ defaultValues, serviceId }: ServiceFormProps) {
             onChange={handleChange}
             rows={4}
             placeholder="وصف تفصيلي للخدمة..."
-            className={`w-full px-4 py-2.5 border rounded-lg text-sm transition-colors outline-none text-slate-900 focus:ring-2 focus:ring-gold/30 resize-none ${
-              errors.description ? "border-red-400 bg-red-50" : "border-slate-200 focus:border-gold"
+            className={`w-full px-4 py-3 border rounded-xl bg-primary text-white placeholder-white/30 transition-all outline-none focus:ring-2 focus:ring-gold/30 resize-none ${
+              errors.description ? "border-red-400 focus:border-red-400" : "border-white/10 focus:border-gold"
             }`}
           />
-          {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
+          {errors.description && <p className="text-red-400 text-xs mt-2">{errors.description}</p>}
         </div>
       </div>
 
       {/* Actions */}
-      <div className="flex items-center gap-4 mt-8 pt-6 border-t border-slate-100">
+      <div className="flex items-center gap-4 mt-8 pt-8 border-t border-white/10">
         <button
           type="submit"
           disabled={isSubmitting}
-          className="bg-gold hover:bg-gold-light text-slate-900 px-6 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-all shadow-md shadow-gold/20 disabled:opacity-60 disabled:cursor-not-allowed"
+          className="bg-gold hover:brightness-110 text-slate-900 px-8 py-3 rounded-xl font-bold flex items-center gap-2 transition-all shadow-md shadow-gold/20 disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {isSubmitting && <Loader2 size={16} className="animate-spin" />}
+          {isSubmitting && <Loader2 size={18} className="animate-spin" />}
           {isEditing ? "حفظ التعديلات" : "إضافة الخدمة"}
         </button>
         <button
           type="button"
           onClick={() => router.push("/dashboard/services")}
-          className="px-5 py-2.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-medium transition-colors"
+          className="px-8 py-3 border border-gold text-gold rounded-xl hover:bg-gold/10 font-bold transition-all disabled:opacity-60"
         >
           إلغاء
         </button>

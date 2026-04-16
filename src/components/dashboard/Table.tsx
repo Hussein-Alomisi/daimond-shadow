@@ -17,47 +17,47 @@ interface TableProps {
 export function Table({ columns, data, isLoading, renderActions }: TableProps) {
   if (isLoading) {
     return (
-      <div className="bg-white rounded-xl border border-slate-200 p-8 flex justify-center items-center">
+      <div className="bg-secondary rounded-2xl border border-white/10 p-8 flex justify-center items-center shadow-lg">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold"></div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+    <div className="bg-secondary rounded-2xl border border-white/10 overflow-hidden shadow-xl">
       <div className="overflow-x-auto">
         <table className="w-full text-right">
-          <thead className="bg-slate-50 border-b border-slate-200">
+          <thead className="bg-white/5 border-b border-white/10">
             <tr>
               {columns.map((col, idx) => (
-                <th key={idx} className="px-6 py-4 text-sm font-semibold text-slate-700">
+                <th key={idx} className="px-6 py-4 text-sm font-bold text-white/80">
                   {col.header}
                 </th>
               ))}
-              <th className="px-6 py-4 text-sm font-semibold text-slate-700 w-36">الإجراءات</th>
+              <th className="px-6 py-4 text-sm font-bold text-white/80 w-36">الإجراءات</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-white/10">
             {data.length > 0 ? (
               data.map((row, rowIdx) => (
-                <tr key={rowIdx} className="hover:bg-slate-50 transition-colors">
+                <tr key={rowIdx} className="hover:bg-primary transition-colors group">
                   {columns.map((col, colIdx) => (
-                    <td key={colIdx} className="px-6 py-4 text-sm text-slate-600">
+                    <td key={colIdx} className="px-6 py-4 text-sm text-white group-hover:text-gold transition-colors">
                       {col.render ? col.render(row) : row[col.accessor]}
                     </td>
                   ))}
-                  <td className="px-6 py-4 text-sm">
+                    <td className="px-6 py-4 text-sm">
                     {renderActions ? (
                       renderActions(row)
                     ) : (
-                      <div className="flex items-center gap-4 text-slate-400 text-xs italic">—</div>
+                      <div className="flex items-center gap-4 text-white/40 text-xs italic">—</div>
                     )}
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={columns.length + 1} className="px-6 py-12 text-center text-slate-400">
+                <td colSpan={columns.length + 1} className="px-6 py-12 text-center text-white/40">
                   لا توجد بيانات لعرضها
                 </td>
               </tr>
