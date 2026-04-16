@@ -1,122 +1,75 @@
-You are a senior full-stack engineer.
+You are a senior frontend engineer and UI designer.
 Project context:
-- Next.js 16 (App Router)
-- Prisma + MySQL
-- Dashboard already has Projects and Services modules
-- Now we want to build a Fields (مجالاتنا) module
+- Next.js 16
+- Tailwind CSS v4
+- RTL Arabic
+- Dashboard already exists
+- Website design is premium (black + gold)
 TASK:
-Create a complete Fields module with gallery support.
-1. Database Design (IMPORTANT)
-Create two models:
-Field:
-- id
-- title
-- slug
-- coverImage
-- mainDescription
-- aboutTitle
-- aboutDescription
-- galleryTitle
-- createdAt
+Upgrade the dashboard UI to match the premium design of the main website.
+1. Global Style
 
-FieldImagesLibrary:
-- id
-- fieldId (relation)
-- image
-- title (optional)
-- description (optional)
-
-
-
-2. Server Layer
-
-Create:
-- fields.service.ts
-- fields.repository.ts
-- fields.mapper.ts
-3. API Routes
-
-Create:
-
-/api/fields
-/api/fields/[id]
-/api/fields/[id]/images
-
-Implement:
-
-Fields:
-- GET all
-- POST create
-- PUT update
-- DELETE
-
-Images:
-- POST add image
-- DELETE image
-- PUT update image
-
-
-
-4. Dashboard Pages
-
-Create:
-
-/dashboard/fields
-→ list of fields
-
-/dashboard/fields/new
-→ create field
-
-/dashboard/fields/[id]
-→ edit field + manage gallery
-
-
-
-5. Field Form
-
-Inputs:
-
-- title
-- slug
-- cover image (upload)
-- main description
-- about title
-- about description
-- gallery title
-
-
-
-6. Gallery Management (IMPORTANT)
-
-Inside field edit page:
-
-- Show existing images
-- Add new image (upload)
-- Edit image title/description
-- Delete image
-7. Image Upload
-- Use same upload logic as projects
-- Save to:
-/public/images/fields/
-8. Frontend Integration
-Update:
-/fields/[slug]
-- Fetch data from API
-- Display:
-  - title
-  - mainDescription
-  - about section
-  - gallery
-9. Clean Architecture
-Ensure flow:
-Dashboard → API → Service → Repository → Prisma → DB
+- Dark background (bg-primary)
+- Use gold accents (text-gold, border-gold)
+- Improve spacing and layout
+2. Form Design (IMPORTANT)
+Improve all forms:
+- Inputs:
+  - bg-secondary
+  - border border-white/10
+  - focus:border-gold
+  - focus:ring-gold/30
+- Labels:
+  - clear
+  - slightly bold
+  - mb-2 spacing
+- Text:
+  - text-white
+  - placeholder muted
+3. Card Layout
+Wrap forms in cards:
+- bg-secondary
+- rounded-2xl
+- p-6 or p-8
+- shadow
+4. Page Structure
+Each page should have:
+- PageHeader (title + description)
+- Card section
+- Proper spacing between sections
+5. Buttons
+Primary button:
+- bg-gold
+- text-black
+- hover:brightness-110
+- rounded-xl
+Secondary:
+- border border-gold
+- text-gold
+6. Table Design
+Improve tables:
+- Dark background
+- Row hover effect
+- Clear spacing
+- Action buttons styled
+7. Sidebar
+- Dark background
+- Active link:
+  - bg-gold/10
+  - text-gold
+8. Inputs UX
+- Larger height (h-12)
+- Rounded-xl
+- Smooth transitions
+9. Sections Separation
+- Add space between sections (gap-8)
+- Optional divider lines
 10. Output
 Provide:
-- Prisma models
-- API routes
-- Dashboard pages
-- Gallery management logic
+- Updated form UI
+- Updated dashboard layout
+- Improved styles
 Ensure:
-- Scalable
-- Clean code
-- No duplication
+- Clean modern look
+- Matches website design
+- RTL friendly
