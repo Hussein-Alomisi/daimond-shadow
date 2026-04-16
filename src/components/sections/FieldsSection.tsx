@@ -1,6 +1,6 @@
 import { MotionDiv } from "../ui/MotionDiv";
 import { FieldCard } from "../ui/FieldCard";
-import { MOCK_FIELDS } from "@/src/lib/data/mockFields";
+import { getFields } from "@/src/modules/fields/field.service";
 import { SITE_INFO } from "@/src/lib/config/constants";
 import { CheckCircle2 } from "lucide-react";
 import type { Variants } from "framer-motion";
@@ -26,7 +26,9 @@ const textBullets = [
   "تصميم وتركيب هناجر",
 ];
 
-export function FieldsSection() {
+export async function FieldsSection() {
+  const fields = await getFields();
+
   return (
     <section
       className="py-24 px-6 relative overflow-hidden bg-gradient-to-b from-secondary/20 to-background"
@@ -79,7 +81,7 @@ export function FieldsSection() {
           </MotionDiv>
 
           {/* FIELD CARDS — order-2 through order-9 (left flank in RTL) */}
-          {MOCK_FIELDS.map((field, i) => (
+          {fields.map((field, i) => (
             <div key={field.id} style={{ order: i + 2 }}>
               <FieldCard field={field} variants={cardReveal} />
             </div>

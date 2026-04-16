@@ -4,7 +4,7 @@ import path from "path";
 const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
-export async function saveImage(file: File): Promise<string> {
+export async function saveImage(file: File, folder: "projects" | "fields" | "fields/gallery" = "projects"): Promise<string> {
   if (!ALLOWED_MIME_TYPES.includes(file.type)) {
     throw new Error(`Invalid file type: ${file.type}. Only JPEG, PNG, and WebP are allowed.`);
   }
@@ -18,12 +18,18 @@ export async function saveImage(file: File): Promise<string> {
 
   // Clean filename to prevent weird characters
   const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, "");
-  const uniqueName = `project-${Date.now()}-${safeName}`;
-  const uploadDir = path.join(process.cwd(), "public/images/projects");
+  const basePrefix = folder.split('/').pop();
+  const uniqueName = `${basePrefix}-${Date.now()}-${safeName}`;
+  const uploadDir = path.join(process.cwd(), `public/images/${folder}`);
+
+  // Ensure directory exists
+  const { mkdir } = await import("fs/promises");
+  await mkdir(uploadDir, { recursive: true });
+
   const filePath = path.join(uploadDir, uniqueName);
 
   await writeFile(filePath, buffer);
 
   // Return the path relative to the public directory
-  return `/images/projects/${uniqueName}`;
+  return `/images/${folder}/${uniqueName}`;
 }

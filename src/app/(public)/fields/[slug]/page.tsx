@@ -1,6 +1,6 @@
-﻿import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { getFieldBySlug, fieldsData } from "@/src/lib/data/fieldsData";
+import { getFieldBySlug } from "@/src/modules/fields/field.service";
 import { HeroBanner } from "@/src/components/ui/HeroBanner";
 import { ProjectsGrid } from "@/src/components/sections/ProjectsGrid";
 import { SITE_INFO } from "@/src/lib/config/constants";
@@ -12,7 +12,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
-  const field = getFieldBySlug(resolvedParams.slug);
+  const field = await getFieldBySlug(resolvedParams.slug);
 
   if (!field) {
     return {
@@ -22,14 +22,8 @@ export async function generateMetadata({
 
   return {
     title: `${field.title} | ${SITE_INFO.name}`,
-    description: field.description,
+    description: field.mainDescription,
   };
-}
-
-export async function generateStaticParams() {
-  return fieldsData.map((field) => ({
-    slug: field.slug,
-  }));
 }
 
 export default async function FieldPage({
@@ -38,7 +32,7 @@ export default async function FieldPage({
   params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
-  const field = getFieldBySlug(resolvedParams.slug);
+  const field = await getFieldBySlug(resolvedParams.slug);
 
   if (!field) {
     notFound();
@@ -46,18 +40,18 @@ export default async function FieldPage({
 
   // Map field images to the Project interface so we can seamlessly reuse the existing ProjectsGrid!
   const mappedProjects: ProjectSummary[] = field.images.map((img, index) => ({
-    id: `${field.slug}-${index}`,
-    title: `نموذج ${field.title} ${index + 1}`,
+    id: img.id,
+    title: img.title || `نموذج ${field.title} ${index + 1}`,
     category: field.title,
-    image: img,
+    image: img.image,
   }));
 
   return (
     <>
       <HeroBanner
         title={field.title}
-        subtitle={field.description}
-        backgroundImage={field.images[0] || "/images/hero/hero-bg.jpg"}
+        subtitle={field.mainDescription}
+        backgroundImage={field.coverImage || "/images/hero/hero-bg.jpg"}
         backgroundImageAlt={field.title}
         breadcrumb={[
           { label: "الرئيسية", href: "/" },
@@ -76,11 +70,11 @@ export default async function FieldPage({
         <div className="container mx-auto max-w-4xl relative z-10 text-center">
           <div className="flex items-center justify-center gap-4 mb-6">
             <span className="w-12 h-[2px] bg-gold rounded block" />
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white">نبذة عن {field.title}</h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white">{field.aboutTitle}</h2>
             <span className="w-12 h-[2px] bg-gold rounded block" />
           </div>
           <p className="text-white/80 text-xl leading-relaxed mt-8 font-medium">
-            {field.description}
+            {field.aboutDescription}
           </p>
         </div>
       </section>
@@ -88,7 +82,7 @@ export default async function FieldPage({
       {mappedProjects.length > 0 && (
         <ProjectsGrid
           projects={mappedProjects}
-          title={`معرض صور ${field.title}`}
+          title={field.galleryTitle}
           subtitle={`تصفح أحدث وأفضل المشاريع التي نفذناها في مجال ${field.title}`}
         />
       )}

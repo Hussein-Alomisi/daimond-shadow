@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MotionDiv } from "./MotionDiv";
-import { WorkField } from "@/src/lib/data/mockFields";
+import type { FieldSummary } from "@/src/models/fields/field";
 import type { Variants } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 
 interface FieldCardProps {
-  field: WorkField;
+  field: FieldSummary;
   variants?: Variants;
 }
 
@@ -27,7 +27,7 @@ export function FieldCard({ field, variants }: FieldCardProps) {
           className="absolute inset-0 w-full h-full transform transition-transform duration-700 ease-out group-hover:scale-110"
         >
           <Image
-            src={field.image}
+            src={field.coverImage}
             alt={`خدمة ${field.title}`}
             fill
             className="object-cover"

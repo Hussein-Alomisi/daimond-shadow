@@ -2,57 +2,121 @@ You are a senior full-stack engineer.
 Project context:
 - Next.js 16 (App Router)
 - Prisma + MySQL
-- Dashboard already fetches projects from /api/projects
+- Dashboard already has Projects and Services modules
+- Now we want to build a Fields (مجالاتنا) module
 TASK:
-Implement full CRUD functionality for Projects.
-1. API Routes (IMPORTANT)
-Enhance:
-/api/projects
-/api/projects/[id]
-Implement:
-- GET /api/projects → list all projects (already exists)
-- POST /api/projects → create project 
-- PUT /api/projects/[id] → update project
-- DELETE /api/projects/[id] → delete project
-Use Prisma:
-- prisma.project.create()
-- prisma.project.update()
-- prisma.project.delete()
-2. Add Project (Create)
-- Create form:
-  /dashboard/projects/new
-Fields:
+Create a complete Fields module with gallery support.
+1. Database Design (IMPORTANT)
+Create two models:
+Field:
+- id
 - title
-- category
-- image (string for now)
+- slug
+- coverImage
+- mainDescription
+- aboutTitle
+- aboutDescription
+- galleryTitle
+- createdAt
+
+FieldImagesLibrary:
+- id
+- fieldId (relation)
+- image
+- title (optional)
 - description (optional)
-- Submit → POST /api/projects
-3. Edit Project
-- Page:
-  /dashboard/projects/[id]
-- Load existing data
-- Update form
-- Submit → PUT /api/projects/[id]
-4. Delete Project
-- Add delete button in table
-- On click:
-  - confirm dialog
-  - call DELETE /api/projects/[id]
-5. UI Behavior
-- After add/edit/delete:
-  - refresh data
-  OR
-  - update state
-6. Error Handling
-- Show success message
-- Show error message
-7. Validation (Basic)- title required- category required
-8. Output
+
+
+
+2. Server Layer
+
+Create:
+- fields.service.ts
+- fields.repository.ts
+- fields.mapper.ts
+3. API Routes
+
+Create:
+
+/api/fields
+/api/fields/[id]
+/api/fields/[id]/images
+
+Implement:
+
+Fields:
+- GET all
+- POST create
+- PUT update
+- DELETE
+
+Images:
+- POST add image
+- DELETE image
+- PUT update image
+
+
+
+4. Dashboard Pages
+
+Create:
+
+/dashboard/fields
+→ list of fields
+
+/dashboard/fields/new
+→ create field
+
+/dashboard/fields/[id]
+→ edit field + manage gallery
+
+
+
+5. Field Form
+
+Inputs:
+
+- title
+- slug
+- cover image (upload)
+- main description
+- about title
+- about description
+- gallery title
+
+
+
+6. Gallery Management (IMPORTANT)
+
+Inside field edit page:
+
+- Show existing images
+- Add new image (upload)
+- Edit image title/description
+- Delete image
+7. Image Upload
+- Use same upload logic as projects
+- Save to:
+/public/images/fields/
+8. Frontend Integration
+Update:
+/fields/[slug]
+- Fetch data from API
+- Display:
+  - title
+  - mainDescription
+  - about section
+  - gallery
+9. Clean Architecture
+Ensure flow:
+Dashboard → API → Service → Repository → Prisma → DB
+10. Output
 Provide:
+- Prisma models
 - API routes
-- Add/Edit form
-- Delete logic
+- Dashboard pages
+- Gallery management logic
 Ensure:
-- Clean architecture
-- No Prisma in UI
-- Reusable code
+- Scalable
+- Clean code
+- No duplication

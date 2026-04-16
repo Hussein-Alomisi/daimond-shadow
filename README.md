@@ -53,8 +53,7 @@ npx prisma init
 npx prisma migrate dev --name init
 
 
-<!-- seed data using prisma -->
-npx prisma db seed
+
 <!-- generate prisma client (after any change in schema.prisma) -->
 npx prisma generate
 
@@ -62,6 +61,9 @@ npx prisma generate
 <!-- update database (after any change in schema.prisma) -->
 npx prisma db push
 
+
+<!-- seed data using prisma -->
+npx prisma db seed
 
 <!-- fix blocked deploy in vercel cuz of user.email -->
 
