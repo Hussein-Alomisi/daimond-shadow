@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Plus, Pencil, Trash2, AlertCircle, Loader2 } from "lucide-react";
 import { PageHeader } from "@/src/components/dashboard/PageHeader";
 import { Table } from "@/src/components/dashboard/Table";
+import { SafeImage } from "@/src/components/ui/SafeImage";
 import type { ProjectSummary } from "@/src/models/project";
 
 export default function ProjectsDashboardPage() {
@@ -61,7 +62,7 @@ export default function ProjectsDashboardPage() {
       accessor: "image",
       render: (row: ProjectSummary) => (
         <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-slate-200 shrink-0">
-          <Image src={row.image} alt={row.title} fill className="object-cover" />
+          <SafeImage src={row.image} alt={row.title} fill className="object-cover" />
         </div>
       ),
     },

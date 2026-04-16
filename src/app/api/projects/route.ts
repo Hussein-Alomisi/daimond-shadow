@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { logError, logResponse } from "@/src/lib/logger";
 import {
   createProject,
@@ -30,12 +30,33 @@ export async function POST(req: Request) {
   const url = new URL(req.url).pathname;
 
   try {
-    const body = await req.json();
-    const project = await createProject(body);
+    const formData = await req.formData();
+    const title = formData.get("title")?.toString() || "";
+    const description = formData.get("description")?.toString() || "";
+    const category = formData.get("category")?.toString() || "";
+    const imageFile = formData.get("image") as File | null;
+
+    if (!imageFile || !(imageFile instanceof File) || imageFile.size === 0) {
+      return NextResponse.json({ error: "Image file is required" }, { status: 400 });
+    }
+
+    const { saveImage } = await import("@/src/lib/file-upload");
+    const imagePath = await saveImage(imageFile);
+
+    const project = await createProject({
+      title,
+      description,
+      category,
+      image: imagePath,
+    });
 
     logResponse(201, url, Date.now() - start);
     return NextResponse.json(project, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
+    if (error.message?.includes("Invalid file type") || error.message?.includes("File size exceeds")) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
     if (isInvalidProjectInput(error)) {
       logResponse(400, url, Date.now() - start);
       return NextResponse.json(

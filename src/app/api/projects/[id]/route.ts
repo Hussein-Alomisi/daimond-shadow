@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { logError, logResponse } from "@/src/lib/logger";
 import {
   deleteProject,
@@ -44,8 +44,26 @@ export async function PUT(
 
   try {
     const { id } = await context.params;
-    const body = await req.json();
-    const project = await updateProject(id, body);
+    const formData = await req.formData();
+    
+    const title = formData.get("title")?.toString();
+    const description = formData.get("description")?.toString();
+    const category = formData.get("category")?.toString();
+    const imageFile = formData.get("image");
+
+    const updateData: any = {};
+    if (title !== undefined) updateData.title = title;
+    if (description !== undefined) updateData.description = description;
+    if (category !== undefined) updateData.category = category;
+
+    if (imageFile instanceof File && imageFile.size > 0) {
+      const { saveImage } = await import("@/src/lib/file-upload");
+      updateData.image = await saveImage(imageFile);
+    } else if (typeof imageFile === "string" && imageFile !== "") {
+      updateData.image = imageFile;
+    }
+
+    const project = await updateProject(id, updateData);
 
     if (!project) {
       logResponse(404, url, Date.now() - start);
@@ -54,7 +72,11 @@ export async function PUT(
 
     logResponse(200, url, Date.now() - start);
     return NextResponse.json(project);
-  } catch (error) {
+  } catch (error: any) {
+    if (error.message?.includes("Invalid file type") || error.message?.includes("File size exceeds")) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
     if (isInvalidProjectInput(error)) {
       logResponse(400, url, Date.now() - start);
       return NextResponse.json(

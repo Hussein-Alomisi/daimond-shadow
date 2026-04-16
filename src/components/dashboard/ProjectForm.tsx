@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Loader2 } from "lucide-react";
+import { SafeImage } from "@/src/components/ui/SafeImage";
 
 interface ProjectFormData {
   title: string;
   category: string;
-  image: string;
+  image: string; // The URL string of existing image
   description: string;
 }
 
@@ -32,6 +34,9 @@ export function ProjectForm({ defaultValues, projectId }: ProjectFormProps) {
     ...EMPTY_FORM,
     ...defaultValues,
   });
+  
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  
   const [errors, setErrors] = useState<Partial<ProjectFormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
@@ -40,7 +45,7 @@ export function ProjectForm({ defaultValues, projectId }: ProjectFormProps) {
     const newErrors: Partial<ProjectFormData> = {};
     if (!form.title.trim()) newErrors.title = "عنوان المشروع مطلوب";
     if (!form.category.trim()) newErrors.category = "التصنيف مطلوب";
-    if (!form.image.trim()) newErrors.image = "رابط الصورة مطلوب";
+    if (!imageFile && !form.image.trim()) newErrors.image = "صورة المشروع مطلوبة";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }
@@ -56,10 +61,20 @@ export function ProjectForm({ defaultValues, projectId }: ProjectFormProps) {
       const url = isEditing ? `/api/projects/${projectId}` : "/api/projects";
       const method = isEditing ? "PUT" : "POST";
 
+      const formData = new FormData();
+      formData.append("title", form.title);
+      formData.append("category", form.category);
+      if (form.description) formData.append("description", form.description);
+      
+      if (imageFile) {
+        formData.append("image", imageFile);
+      } else if (isEditing && form.image) {
+        formData.append("image", form.image);
+      }
+
       const response = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: formData, // Do NOT set Content-Type header when using FormData
       });
 
       if (!response.ok) {
@@ -86,6 +101,14 @@ export function ProjectForm({ defaultValues, projectId }: ProjectFormProps) {
     setForm((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof ProjectFormData]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  }
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0] || null;
+    setImageFile(file);
+    if (errors.image && file) {
+      setErrors((prev) => ({ ...prev, image: undefined }));
     }
   }
 
@@ -143,21 +166,34 @@ export function ProjectForm({ defaultValues, projectId }: ProjectFormProps) {
           {errors.category && <p className="text-red-500 text-xs mt-1">{errors.category}</p>}
         </div>
 
-        {/* Image URL */}
+        {/* Image File */}
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">
-            رابط الصورة <span className="text-red-500">*</span>
+          <label className="block text-sm font-semibold text-slate-700 mb-2">
+            صورة المشروع <span className="text-red-500">*</span>
           </label>
+          
+          {isEditing && form.image && !imageFile && (
+            <div className="mb-3 p-3 bg-slate-50 border border-slate-100 rounded-lg flex items-center gap-4">
+              <div className="relative w-16 h-16 rounded overflow-hidden shadow-sm shrink-0">
+                <SafeImage src={form.image} alt="المشروع الحالي" fill className="object-cover" />
+              </div>
+              <div className="text-sm text-slate-600 flex-1">
+                <p className="font-semibold text-slate-800 mb-1">الصورة الحالية:</p>
+                <p className="text-xs truncate text-slate-500" dir="ltr">{form.image}</p>
+              </div>
+            </div>
+          )}
+
           <input
-            type="text"
+            type="file"
             name="image"
-            value={form.image}
-            onChange={handleChange}
-            placeholder="مثال: /images/projects/my-project.jpg"
-            className={`w-full px-4 py-2.5 border rounded-lg text-sm transition-colors outline-none text-slate-900 focus:ring-2 focus:ring-gold/30 ${
+            accept="image/jpeg, image/png, image/webp"
+            onChange={handleFileChange}
+            className={`w-full px-4 py-2 border rounded-lg text-sm transition-colors text-slate-900 file:ml-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gold/10 file:text-yellow-800 hover:file:bg-gold/20 ${
               errors.image ? "border-red-400 bg-red-50" : "border-slate-200 focus:border-gold"
             }`}
           />
+          <p className="text-xs text-slate-500 mt-2">الامتدادات المسموحة: JPEG, PNG, WebP. الحجم الأقصى: 2 ميجابايت.</p>
           {errors.image && <p className="text-red-500 text-xs mt-1">{errors.image}</p>}
         </div>
 
