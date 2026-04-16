@@ -98,13 +98,13 @@ export default function SocialSettingsPage() {
         subtitle="قم بتحديث معلومات الاتصال والروابط الاجتماعية الخاصة بالموقع."
       />
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-slate-200 shadow-sm p-8 max-w-2xl text-slate-800">
+      <form onSubmit={handleSubmit} className="bg-secondary rounded-2xl border border-white/10 shadow-xl p-6 md:p-8 max-w-2xl text-white">
         {feedback && (
           <div
-            className={`mb-6 px-4 py-3 rounded-lg text-sm font-medium border ${
+            className={`mb-8 px-5 py-4 rounded-xl text-sm font-medium border ${
               feedback.type === "success"
-                ? "bg-green-50 border-green-200 text-green-700"
-                : "bg-red-50 border-red-200 text-red-600"
+                ? "bg-green-500/10 border-green-500/20 text-green-400"
+                : "bg-red-500/10 border-red-500/20 text-red-400"
             }`}
           >
             {feedback.message}
@@ -114,11 +114,11 @@ export default function SocialSettingsPage() {
         <div className="space-y-6">
           {/* Phone Field */}
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">
+            <label className="block text-sm font-bold text-white mb-2">
               رقم الهاتف المباشر <span className="text-red-500">*</span>
             </label>
             <div className="relative">
-              <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400">
+              <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-white/40">
                 <Phone size={18} />
               </span>
               <input
@@ -127,20 +127,20 @@ export default function SocialSettingsPage() {
                 value={form.phone}
                 onChange={handleChange}
                 placeholder="مثال: 966500000000+"
-                className="w-full pr-10 pl-4 py-2.5 border border-slate-200 rounded-lg text-sm transition-colors outline-none focus:border-gold focus:ring-2 focus:ring-gold/30"
+                className="w-full pr-12 pl-4 h-12 border rounded-xl bg-primary text-white placeholder-white/30 transition-all outline-none focus:ring-2 focus:ring-gold/30 border-white/10 focus:border-gold"
                 dir="ltr"
               />
             </div>
-            <p className="text-xs text-slate-500 mt-1">يُستخدم للاتصال المباشر من خلال الموقع.</p>
+            <p className="text-xs text-white/40 mt-2">يُستخدم للاتصال المباشر من خلال الموقع.</p>
           </div>
 
           {/* WhatsApp Field */}
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">
+            <label className="block text-sm font-bold text-white mb-2">
               رقم الواتساب <span className="text-red-500">*</span>
             </label>
             <div className="relative">
-              <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-green-500">
+              <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-green-500">
                 <MessageCircle size={18} />
               </span>
               <input
@@ -149,20 +149,20 @@ export default function SocialSettingsPage() {
                 value={form.whatsapp}
                 onChange={handleChange}
                 placeholder="مثال: 966500000000+"
-                className="w-full pr-10 pl-4 py-2.5 border border-slate-200 rounded-lg text-sm transition-colors outline-none focus:border-gold focus:ring-2 focus:ring-gold/30"
+                className="w-full pr-12 pl-4 h-12 border rounded-xl bg-primary text-white placeholder-white/30 transition-all outline-none focus:ring-2 focus:ring-gold/30 border-white/10 focus:border-gold"
                 dir="ltr"
               />
             </div>
-            <p className="text-xs text-slate-500 mt-1">يُستخدم لزر "تواصل عبر الواتساب".</p>
+            <p className="text-xs text-white/40 mt-2">يُستخدم لزر "تواصل عبر الواتساب".</p>
           </div>
 
           {/* Email Field */}
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">
+            <label className="block text-sm font-bold text-white mb-2">
               البريد الإلكتروني
             </label>
             <div className="relative">
-              <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400">
+              <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-white/40">
                 <Mail size={18} />
               </span>
               <input
@@ -171,20 +171,20 @@ export default function SocialSettingsPage() {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="info@example.com"
-                className="w-full pr-10 pl-4 py-2.5 border border-slate-200 rounded-lg text-sm transition-colors outline-none focus:border-gold focus:ring-2 focus:ring-gold/30"
+                className="w-full pr-12 pl-4 h-12 border rounded-xl bg-primary text-white placeholder-white/30 transition-all outline-none focus:ring-2 focus:ring-gold/30 border-white/10 focus:border-gold"
                 dir="ltr"
               />
             </div>
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-slate-100 flex justify-start">
+        <div className="mt-8 pt-8 border-t border-white/10 flex justify-start">
           <button
             type="submit"
             disabled={isSaving}
-            className="bg-gold hover:bg-gold-light text-slate-900 px-8 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-all shadow-md shadow-gold/20 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="bg-gold hover:brightness-110 text-slate-900 px-8 py-3 rounded-xl font-bold flex items-center gap-2 transition-all shadow-md shadow-gold/20 disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            {isSaving && <Loader2 size={16} className="animate-spin" />}
+            {isSaving && <Loader2 size={18} className="animate-spin" />}
             حفظ التعديلات
           </button>
         </div>

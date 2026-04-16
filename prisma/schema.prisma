@@ -66,3 +66,12 @@ model FieldImagesLibrary {
   title       String?
   description String?  @db.Text
 }
+
+model QuoteRequest {
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String
+  service   String
+  message   String   @db.Text
+  createdAt DateTime @default(now())
+}

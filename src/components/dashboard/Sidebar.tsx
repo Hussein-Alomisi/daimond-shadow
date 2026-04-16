@@ -8,7 +8,8 @@ import {
   Settings,
   Layers,
   Layout,
-  ChevronLeft
+  ChevronLeft,
+  MessageSquare // Added
 } from "lucide-react";
 
 // Helper for conditional classNames
@@ -18,6 +19,7 @@ function cn(...classes: (string | undefined | null | false)[]) {
 
 const menuItems = [
   { label: "الرئيسية", href: "/dashboard", icon: Home },
+  { label: "طلبات الأسعار", href: "/dashboard/quotes", icon: MessageSquare },
   { label: "المشاريع", href: "/dashboard/projects", icon: Briefcase },
   { label: "الخدمات", href: "/dashboard/services", icon: Settings },
   { label: "مجالاتنا", href: "/dashboard/fields", icon: Layers },

@@ -12,9 +12,10 @@ interface TableProps {
   isLoading?: boolean;
   /** Custom actions renderer per row. Falls back to static placeholder if not provided. */
   renderActions?: (row: any) => ReactNode;
+  hideActions?: boolean;
 }
 
-export function Table({ columns, data, isLoading, renderActions }: TableProps) {
+export function Table({ columns, data, isLoading, renderActions, hideActions = false }: TableProps) {
   if (isLoading) {
     return (
       <div className="bg-secondary rounded-2xl border border-white/10 p-8 flex justify-center items-center shadow-lg">
@@ -34,7 +35,9 @@ export function Table({ columns, data, isLoading, renderActions }: TableProps) {
                   {col.header}
                 </th>
               ))}
-              <th className="px-6 py-4 text-sm font-bold text-white/80 w-36">الإجراءات</th>
+              {!hideActions && (
+                <th className="px-6 py-4 text-sm font-bold text-white/80 w-36">الإجراءات</th>
+              )}
             </tr>
           </thead>
           <tbody className="divide-y divide-white/10">
@@ -46,18 +49,20 @@ export function Table({ columns, data, isLoading, renderActions }: TableProps) {
                       {col.render ? col.render(row) : row[col.accessor]}
                     </td>
                   ))}
+                  {!hideActions && (
                     <td className="px-6 py-4 text-sm">
-                    {renderActions ? (
-                      renderActions(row)
-                    ) : (
-                      <div className="flex items-center gap-4 text-white/40 text-xs italic">—</div>
-                    )}
-                  </td>
+                      {renderActions ? (
+                        renderActions(row)
+                      ) : (
+                        <div className="flex items-center gap-4 text-white/40 text-xs italic">—</div>
+                      )}
+                    </td>
+                  )}
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={columns.length + 1} className="px-6 py-12 text-center text-white/40">
+                <td colSpan={columns.length + (hideActions ? 0 : 1)} className="px-6 py-12 text-center text-white/40">
                   لا توجد بيانات لعرضها
                 </td>
               </tr>
