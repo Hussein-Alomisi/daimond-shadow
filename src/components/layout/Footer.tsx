@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { MotionDiv } from "../ui/MotionDiv";
 import Link from "next/link";
@@ -8,8 +8,8 @@ import {
 } from "lucide-react";
 import { SITE_INFO, NAVIGATION_LINKS, QUICK_LINKS } from "@/src/lib/config/constants";
 import { MOCK_FIELDS } from "@/src/lib/data/mockFields";
-
 import type { Transition } from "framer-motion";
+import type { SocialSettingsData } from "@/src/modules/social/social.service";
 
 // ─────────────────────────────────────────────
 // Data
@@ -18,32 +18,6 @@ const footerServices = MOCK_FIELDS.map((f) => ({
   label: f.title,
   href: "/#fields-section",
 }));
-
-const contactInfo = [
-  {
-    icon: MapPin,
-    label: "الموقع",
-    value: "المملكة العربية السعودية، المنطقة الشرقية",
-  },
-  {
-    icon: Mail,
-    label: "البريد الإلكتروني",
-    value: "info@tashyed-alqwa.com",
-    href: "mailto:info@tashyed-alqwa.com",
-  },
-  {
-    icon: Phone,
-    label: "الهاتف",
-    value: process.env.NEXT_PUBLIC_PHONE_NUMBER || "+966 5X XXX XXXX",
-    href: `tel:+${process.env.NEXT_PUBLIC_PHONE_NUMBER || "9665XXXXXXXX"}`,
-  },
-  {
-    icon: MessageCircle,
-    label: "واتساب",
-    value: "تواصل معنا عبر واتساب",
-    href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "9665XXXXXXXX"}`,
-  },
-];
 
 const visitorStats = [
   { icon: Eye, label: "اليوم", value: "٢٤٨" },
@@ -95,19 +69,47 @@ function FooterServiceItem({ label, href }: { label: string; href: string }) {
 }
 
 // ─────────────────────────────────────────────
-// Main Footer (Server Component)
+// Main Footer
 // ─────────────────────────────────────────────
-export function Footer() {
+interface FooterProps {
+  socialSettings: SocialSettingsData;
+}
+
+export function Footer({ socialSettings }: FooterProps) {
+  const contactInfo = [
+    {
+      icon: MapPin,
+      label: "الموقع",
+      value: "المملكة العربية السعودية، المنطقة الشرقية",
+    },
+    {
+      icon: Mail,
+      label: "البريد الإلكتروني",
+      value: socialSettings.email || "info@tashyed-alqwa.com",
+      href: `mailto:${socialSettings.email || "info@tashyed-alqwa.com"}`,
+    },
+    {
+      icon: Phone,
+      label: "الهاتف",
+      value: socialSettings.phone || "+966 5X XXX XXXX",
+      href: `tel:+${socialSettings.phone || "9665XXXXXXXX"}`,
+    },
+    {
+      icon: MessageCircle,
+      label: "واتساب",
+      value: "تواصل معنا عبر واتساب",
+      href: `https://wa.me/${socialSettings.whatsapp || "9665XXXXXXXX"}`,
+    },
+  ];
+
   return (
     <>
-      {/* ── Main Footer Body ── */}
       <footer
         className="relative overflow-hidden"
         style={{
           background: "linear-gradient(160deg, #0A0A0A 0%, #0f1520 50%, #0A0A0A 100%)",
         }}
       >
-        {/* Decorative glows */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 opacity-25"
@@ -126,10 +128,8 @@ export function Footer() {
         />
 
         <div className="container mx-auto px-6 max-w-7xl pt-16 pb-10">
-
-          {/* 4-Column Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
-
+            
             {/* Column 1: Company Info */}
             <MotionDiv
               custom={0}
@@ -152,7 +152,6 @@ export function Footer() {
                 ١٥ عامًا.
               </p>
 
-              {/* Visitor Stats */}
               <div>
                 <p className="text-white/40 text-xs mb-3 font-medium uppercase tracking-widest">
                   إحصاءات الزوار
@@ -248,14 +247,12 @@ export function Footer() {
               viewport={{ once: true, margin: "-50px" }}
             >
               <ColumnHeading>روابط سريعة</ColumnHeading>
-              {/* Page links — sourced from QUICK_LINKS (single source of truth) */}
               <ul className="space-y-1">
                 {QUICK_LINKS.map((s) => (
                   <FooterServiceItem key={s.label} {...s} />
                 ))}
               </ul>
 
-              {/* Navigation pills */}
               <div className="mt-6 pt-6 border-t border-white/10">
                 <p className="text-white/35 text-[10px] uppercase tracking-widest mb-3">
                   التنقل
@@ -276,7 +273,6 @@ export function Footer() {
             </MotionDiv>
           </div>
 
-          {/* Divider */}
           <div
             aria-hidden="true"
             className="mb-6"
@@ -286,7 +282,6 @@ export function Footer() {
             }}
           />
 
-          {/* Bottom Bar */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/35">
             <p>© 2026 {SITE_INFO.fullName}. جميع الحقوق محفوظة.</p>
             <p>
@@ -299,4 +294,3 @@ export function Footer() {
     </>
   );
 }
-

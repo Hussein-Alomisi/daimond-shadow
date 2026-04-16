@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { 
-  Home, 
-  Briefcase, 
-  Settings, 
-  Layers, 
-  Layout, 
-  ChevronLeft 
+import {
+  Home,
+  Briefcase,
+  Settings,
+  Layers,
+  Layout,
+  ChevronLeft
 } from "lucide-react";
 
 // Helper for conditional classNames
@@ -22,6 +22,7 @@ const menuItems = [
   { label: "الخدمات", href: "/dashboard/services", icon: Settings },
   { label: "مجالاتنا", href: "/dashboard/fields", icon: Layers },
   { label: "الهيرو", href: "/dashboard/hero", icon: Layout },
+  { label: "إعدادات التواصل", href: "/dashboard/social", icon: Settings },
 ];
 
 export function Sidebar() {
@@ -32,7 +33,7 @@ export function Sidebar() {
       <div className="p-6 border-b border-slate-800 flex items-center justify-between">
         <h1 className="text-xl font-bold text-gold">لوحة التحكم</h1>
         <div className="bg-slate-800 p-1 rounded-md md:hidden">
-            <ChevronLeft size={20} />
+          <ChevronLeft size={20} />
         </div>
       </div>
 
@@ -47,13 +48,13 @@ export function Sidebar() {
               href={item.href}
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group text-sm font-medium",
-                isActive 
-                  ? "bg-gold text-slate-900 shadow-lg shadow-gold/20" 
+                isActive
+                  ? "bg-gold text-slate-900 shadow-lg shadow-gold/20"
                   : "text-slate-400 hover:text-white hover:bg-slate-800"
               )}
             >
               <Icon size={20} className={cn(
-                  isActive ? "text-slate-900" : "text-slate-400 group-hover:text-gold"
+                isActive ? "text-slate-900" : "text-slate-400 group-hover:text-gold"
               )} />
               <span>{item.label}</span>
             </Link>
@@ -62,11 +63,11 @@ export function Sidebar() {
       </nav>
 
       <div className="p-4 border-t border-slate-800">
-        <Link 
-            href="/" 
-            className="flex items-center justify-center gap-2 py-2 px-4 rounded-md border border-slate-700 text-xs text-slate-400 hover:text-white hover:border-slate-500 transition-colors"
+        <Link
+          href="/"
+          className="flex items-center justify-center gap-2 py-2 px-4 rounded-md border border-slate-700 text-xs text-slate-400 hover:text-white hover:border-slate-500 transition-colors"
         >
-            العودة للموقع
+          العودة للموقع
         </Link>
       </div>
     </aside>

@@ -2,10 +2,15 @@
 
 import { motion } from "framer-motion";
 import { Phone } from "lucide-react";
+import type { SocialSettingsData } from "@/src/modules/social/social.service";
 
-export function FloatingButtons() {
-  const phoneNumber = process.env.NEXT_PUBLIC_PHONE_NUMBER || "9665XXXXXXXX";
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "9665XXXXXXXX";
+interface FloatingButtonsProps {
+  socialSettings: SocialSettingsData;
+}
+
+export function FloatingButtons({ socialSettings }: FloatingButtonsProps) {
+  const phoneNumber = socialSettings.phone || "9665XXXXXXXX";
+  const whatsappNumber = socialSettings.whatsapp || "9665XXXXXXXX";
 
   return (
     <div className="fixed bottom-6 left-6 z-50 flex flex-col gap-3">

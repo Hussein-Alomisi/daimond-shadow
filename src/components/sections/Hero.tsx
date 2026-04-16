@@ -4,6 +4,7 @@ import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { SITE_INFO } from "@/src/lib/config/constants";
+import type { HeroSettingsData } from "@/src/modules/hero/hero.service";
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -25,7 +26,15 @@ const staggerContainer: Variants = {
   }
 };
 
-export function Hero() {
+interface HeroProps {
+  heroSettings: HeroSettingsData;
+}
+
+export function Hero({ heroSettings }: HeroProps) {
+  // If the title has newline characters (\n), they will be rendered effectively 
+  // via CSS line breaks or explicitly splitting if preferred. 
+  // For simplicity, whitespace-pre-line is great.
+
   return (
     <section id="hero-section" className="relative min-h-screen flex items-center justify-start overflow-hidden pt-20">
 
@@ -34,20 +43,20 @@ export function Hero() {
         className="absolute inset-0 z-0 bg-secondary"
       >
         <Image
-          src="/images/hero/hero-bg.gif"
+          src={heroSettings.image || "/images/hero/hero-bg.gif"}
           alt="صورة تعبيرية لموقع بناء"
           fill
           priority
-          className="object-cover opacity-60    object-center"
+          className="object-cover opacity-90 object-center"
         />
         {/* Gradient Overlay top-fade for Navbar visibility */}
         <div className="absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-black/60 to-transparent z-10" />
 
-        {/* Darken the text side so the white hero copy stays readable */}
-        <div className="absolute inset-y-0 right-0 w-full bg-[linear-gradient(270deg,rgba(10,10,10,0.82)_0%,rgba(10,10,10,0.52)_28%,rgba(10,10,10,0.16)_52%,transparent_72%)] z-10" />
+        {/* Darken the text side slightly so the white hero copy stays readable */}
+        <div className="absolute inset-y-0 right-0 w-full bg-[linear-gradient(270deg,rgba(10,10,10,0.50)_0%,rgba(10,10,10,0.25)_28%,rgba(10,10,10,0.05)_52%,transparent_72%)] z-10" />
         {/* Gradient Overlay left-to-right fade & bottom-fade for cinematic feel */}
-        <div className="absolute inset-0 bg-gradient-to-60 via-primary/60 to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-60 via-primary/20 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent z-10" />
       </div>
 
       {/* Content Container */}
@@ -67,15 +76,14 @@ export function Hero() {
           </motion.div>
 
           <motion.div variants={fadeIn}>
-            <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
-              نبني المستقبل <br className="hidden md:block" />
-              {/* <span className="text-gold">بجودة وإتقان</span> */}
+            <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6 whitespace-pre-line">
+              {heroSettings.title}
             </h1>
           </motion.div>
 
           <motion.div variants={fadeIn}>
-            <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-10 max-w-2xl">
-              {SITE_INFO.description}
+            <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-10 max-w-2xl whitespace-pre-line">
+              {heroSettings.subtitle}
             </p>
           </motion.div>
 

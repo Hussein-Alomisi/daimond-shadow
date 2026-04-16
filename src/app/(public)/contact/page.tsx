@@ -2,40 +2,42 @@ import type { Metadata } from "next";
 import { HeroBanner } from "@/src/components/ui/HeroBanner";
 import { SITE_INFO } from "@/src/lib/config/constants";
 import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
+import { getSocialSettings } from "@/src/modules/social/social.service";
 
 export const metadata: Metadata = {
   title: "تواصل معنا",
   description: `تواصل مع ${SITE_INFO.name} للحصول على عرض سعر مجاني. نحن في خدمتكم في المنطقة الشرقية، المملكة العربية السعودية.`,
 };
 
-const contactDetails = [
-  {
-    icon: MapPin,
-    title: "الموقع",
-    value: "المملكة العربية السعودية، المنطقة الشرقية",
-    href: undefined,
-  },
-  {
-    icon: Phone,
-    title: "الهاتف",
-    value: process.env.NEXT_PUBLIC_PHONE_NUMBER || "+966 5X XXX XXXX",
-    href: `tel:+${process.env.NEXT_PUBLIC_PHONE_NUMBER || "9665XXXXXXXX"}`,
-  },
-  {
-    icon: Mail,
-    title: "البريد الإلكتروني",
-    value: "info@tashyed-alqwa.com",
-    href: "mailto:info@tashyed-alqwa.com",
-  },
-  {
-    icon: MessageCircle,
-    title: "واتساب",
-    value: "تواصل معنا عبر واتساب",
-    href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "9665XXXXXXXX"}`,
-  },
-];
+export default async function ContactPage() {
+  const socialSettings = await getSocialSettings();
 
-export default function ContactPage() {
+  const contactDetails = [
+    {
+      icon: MapPin,
+      title: "الموقع",
+      value: "المملكة العربية السعودية، المنطقة الشرقية",
+      href: undefined,
+    },
+    {
+      icon: Phone,
+      title: "الهاتف",
+      value: socialSettings.phone || "+966 5X XXX XXXX",
+      href: `tel:+${socialSettings.phone || "9665XXXXXXXX"}`,
+    },
+    {
+      icon: Mail,
+      title: "البريد الإلكتروني",
+      value: socialSettings.email || "info@tashyed-alqwa.com",
+      href: `mailto:${socialSettings.email || "info@tashyed-alqwa.com"}`,
+    },
+    {
+      icon: MessageCircle,
+      title: "واتساب",
+      value: "تواصل معنا عبر واتساب",
+      href: `https://wa.me/${socialSettings.whatsapp || "9665XXXXXXXX"}`,
+    },
+  ];
   return (
     <>
       <HeroBanner

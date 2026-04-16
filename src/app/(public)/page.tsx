@@ -1,4 +1,4 @@
-﻿import { Hero } from "@/src/components/sections/Hero";
+import { Hero } from "@/src/components/sections/Hero";
 import { AboutSection } from "@/src/components/sections/AboutSection";
 import { ServicesSection } from "@/src/components/sections/ServicesSection";
 import { FieldsSection } from "@/src/components/sections/FieldsSection";
@@ -6,6 +6,7 @@ import { ProjectsGrid } from "@/src/components/sections/ProjectsGrid";
 import { VisionMissionSection } from "@/src/components/sections/VisionMissionSection";
 import { WhyChooseUsSection } from "@/src/components/sections/WhyChooseUsSection";
 import { getProjects } from "@/src/modules/projects/project.service";
+import { getHeroSettings } from "@/src/modules/hero/hero.service";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,10 +16,11 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const projects = await getProjects();
+  const heroSettings = await getHeroSettings();
 
   return (
     <>
-      <Hero />
+      <Hero heroSettings={heroSettings} />
       <FieldsSection />
       <AboutSection />
       <ServicesSection />

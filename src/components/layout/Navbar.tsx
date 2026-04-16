@@ -1,12 +1,17 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAVIGATION_LINKS } from "@/src/lib/config/constants";
+import type { SocialSettingsData } from "@/src/modules/social/social.service";
 
-export function Navbar() {
+interface NavbarProps {
+  socialSettings: SocialSettingsData;
+}
+
+export function Navbar({ socialSettings }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");

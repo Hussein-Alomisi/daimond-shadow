@@ -28,3 +28,19 @@ model Service {
   icon        String
   createdAt   DateTime @default(now())
 }
+
+model SocialSettings {
+  id        Int      @id @default(1)
+  phone     String
+  whatsapp  String
+  email     String
+  updatedAt DateTime @updatedAt
+}
+
+model HeroSettings {
+  id        Int      @id @default(1)
+  title     String
+  subtitle  String
+  image     String   @default("/images/hero/hero-bg.jpg")
+  updatedAt DateTime @updatedAt
+}
