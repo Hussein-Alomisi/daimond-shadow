@@ -6,3 +6,15 @@ export async function findAllQuotes(): Promise<QuoteRequest[]> {
     orderBy: { createdAt: "desc" },
   });
 }
+
+export async function createQuoteRequest(data: {
+  name: string;
+  phone: string;
+  service: string;
+  message: string;
+}): Promise<QuoteRequest> {
+  return prisma.quoteRequest.create({
+    data,
+  });
+}
+

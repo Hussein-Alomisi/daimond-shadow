@@ -3,6 +3,7 @@ import { HeroBanner } from "@/src/components/ui/HeroBanner";
 import { SITE_INFO } from "@/src/lib/config/constants";
 import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
 import { getSocialSettings } from "@/src/modules/social/social.service";
+import { ContactForm } from "@/src/components/forms/ContactForm";
 
 export const metadata: Metadata = {
   title: "تواصل معنا",
@@ -38,6 +39,7 @@ export default async function ContactPage() {
       href: `https://wa.me/${socialSettings.whatsapp || "9665XXXXXXXX"}`,
     },
   ];
+
   return (
     <>
       <HeroBanner
@@ -121,91 +123,7 @@ export default async function ContactPage() {
             </div>
 
             {/* ── Request Form ── */}
-            <div
-              className="rounded-2xl border border-gold/20 p-8 md:p-10"
-              style={{ background: "rgba(255,255,255,0.03)" }}
-            >
-              <h3 className="text-2xl font-bold text-white mb-2">اطلب عرض سعر مجاني</h3>
-              <p className="text-white/50 text-sm mb-8">
-                أرسل لنا تفاصيل مشروعك وسنتواصل معك خلال 24 ساعة.
-              </p>
-
-              <form
-                action="https://formspree.io/f/xyzgkpqr"
-                method="POST"
-                className="space-y-5"
-              >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label htmlFor="name" className="block text-white/60 text-sm mb-2">
-                      الاسم الكامل <span className="text-gold" aria-hidden="true">*</span>
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      required
-                      placeholder="محمد أحمد"
-                      className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-gold/50 transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="phone" className="block text-white/60 text-sm mb-2">
-                      رقم الجوال <span className="text-gold" aria-hidden="true">*</span>
-                    </label>
-                    <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      required
-                      placeholder="05XXXXXXXX"
-                      className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-gold/50 transition-colors"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="service" className="block text-white/60 text-sm mb-2">
-                    نوع الخدمة
-                  </label>
-                  <select
-                    id="service"
-                    name="service"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold/50 transition-colors"
-                  >
-                    <option value="" className="bg-neutral-900">اختر الخدمة</option>
-                    <option value="مظلات" className="bg-neutral-900">مظلات</option>
-                    <option value="سواتر" className="bg-neutral-900">سواتر</option>
-                    <option value="برجولات" className="bg-neutral-900">برجولات</option>
-                    <option value="قرميد" className="bg-neutral-900">قرميد</option>
-                    <option value="ترميمات" className="bg-neutral-900">ترميمات</option>
-                    <option value="عوازل أسطح" className="bg-neutral-900">عوازل أسطح</option>
-                    <option value="ساندوتش بانل" className="bg-neutral-900">ساندوتش بانل</option>
-                    <option value="مقاول بناء" className="bg-neutral-900">مقاول بناء</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-white/60 text-sm mb-2">
-                    تفاصيل المشروع
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    placeholder="اكتب تفاصيل مشروعك هنا..."
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-gold/50 transition-colors resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-gold text-primary font-bold py-3.5 rounded-lg shadow-lg shadow-gold/20 hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300"
-                >
-                  إرسال الطلب
-                </button>
-              </form>
-            </div>
+            <ContactForm />
 
           </div>
         </div>
