@@ -40,7 +40,7 @@ const servicesToSeed = [
   },
 ];
 
-async function main() {
+export async function seedServices(prisma: PrismaClient) {
   console.log("Start seeding Services...");
 
   for (const s of servicesToSeed) {
@@ -50,14 +50,6 @@ async function main() {
     console.log(`Created service with id: ${service.id} - ${service.title}`);
   }
 
-  console.log("Seeding finished.");
+  console.log("Services seeding finished.");
 }
 
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });

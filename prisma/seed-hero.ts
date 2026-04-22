@@ -9,7 +9,7 @@ const heroData = {
   image: "/images/hero/hero-bg.gif"
 };
 
-async function main() {
+export async function seedHero(prisma: PrismaClient) {
   console.log("Start seeding Hero...");
 
   const hero = await prisma.heroSettings.upsert({
@@ -19,14 +19,6 @@ async function main() {
   });
 
   console.log(`Hero settings seeded at id: ${hero.id}`);
-  console.log("Seeding finished.");
+  console.log("Hero seeding finished.");
 }
 
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });

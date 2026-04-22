@@ -21,7 +21,7 @@ export const QUICK_LINKS = [
   { label: "الرئيسية", href: "/" },
   { label: "من نحن", href: "/about" },
   { label: "خدماتنا", href: "/services" },
-  { label: "رؤيتنا", href: "/vision-mission" },
+  { label: "رؤيتنا", href: "/#vision-mission" },
   { label: "مشاريعنا", href: "/projects" },
   { label: "تواصل معنا", href: "/contact" },
 ];
