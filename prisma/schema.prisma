@@ -1,40 +1,37 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL") // works fine its cuz of extension
+  url      = env("DATABASE_URL")
 }
 
-model Project {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
+model field {
+  id               Int                  @id @default(autoincrement())
+  title            String
+  slug             String               @unique(map: "Field_slug_key")
+  coverImage       String
+  mainDescription  String               @db.Text
+  aboutTitle       String
+  aboutDescription String               @db.Text
+  galleryTitle     String
+  createdAt        DateTime             @default(now())
+  images           FieldImagesLibrary[]
+
+  @@map("field")
+}
+
+model FieldImagesLibrary {
+  id          Int     @id @default(autoincrement())
+  fieldId     Int
   image       String
-  category    String?
-  createdAt   DateTime @default(now())
-}
+  title       String?
+  description String? @db.Text
+  field       field   @relation(fields: [fieldId], references: [id], onDelete: Cascade, map: "FieldImagesLibrary_fieldId_fkey")
 
-model Service {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  icon        String
-  createdAt   DateTime @default(now())
-}
-
-model SocialSettings {
-  id        Int      @id @default(1)
-  phone     String
-  whatsapp  String
-  email     String
-  updatedAt DateTime @updatedAt
+  @@index([fieldId], map: "FieldImagesLibrary_fieldId_fkey")
+  @@map("fieldimageslibrary")
 }
 
 model HeroSettings {
@@ -42,29 +39,20 @@ model HeroSettings {
   title     String
   subtitle  String
   image     String   @default("/images/hero/hero-bg.jpg")
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now())
+
+  @@map("herosettings")
 }
 
-model Field {
-  id               Int                   @id @default(autoincrement())
-  title            String
-  slug             String                @unique
-  coverImage       String
-  mainDescription  String                @db.Text
-  aboutTitle       String
-  aboutDescription String                @db.Text
-  galleryTitle     String
-  createdAt        DateTime              @default(now())
-  images           FieldImagesLibrary[]
-}
-
-model FieldImagesLibrary {
+model project {
   id          Int      @id @default(autoincrement())
-  fieldId     Int
-  field       Field    @relation(fields: [fieldId], references: [id], onDelete: Cascade)
+  title       String
+  description String
   image       String
-  title       String?
-  description String?  @db.Text
+  category    String?
+  createdAt   DateTime @default(now())
+
+  @@map("project")
 }
 
 model QuoteRequest {
@@ -74,4 +62,26 @@ model QuoteRequest {
   service   String
   message   String   @db.Text
   createdAt DateTime @default(now())
+
+  @@map("quoterequest")
+}
+
+model service {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  icon        String
+  createdAt   DateTime @default(now())
+
+  @@map("service")
+}
+
+model SocialSettings {
+  id        Int      @id @default(1)
+  phone     String
+  whatsapp  String
+  email     String
+  updatedAt DateTime @default(now())
+
+  @@map("socialsettings")
 }
