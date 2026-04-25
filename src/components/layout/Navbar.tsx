@@ -66,6 +66,28 @@ export function Navbar({ socialSettings }: NavbarProps) {
       >
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="flex items-center justify-between">
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="lg:hidden text-white/90 hover:text-gold transition-colors p-2"
+              aria-label="افتخ قائمة التنقل"
+            >
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+
             {/* Logo */}
             <Link
               href="/#hero-section"
@@ -105,28 +127,6 @@ export function Navbar({ socialSettings }: NavbarProps) {
                 اطلب عرض سعر
               </Link>
             </div>
-
-            {/* Mobile Menu Toggle */}
-            <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden text-white/90 hover:text-gold transition-colors p-2"
-              aria-label="افتخ قائمة التنقل"
-            >
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </svg>
-            </button>
           </div>
         </div>
       </header>

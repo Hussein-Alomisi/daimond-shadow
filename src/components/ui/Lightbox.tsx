@@ -56,12 +56,12 @@ export function Lightbox({
   const [direction, setDirection] = useState(0);
 
   const handleNext = useCallback(() => {
-    setDirection(1);
+    setDirection(-1); // In RTL, next comes from the left
     onNavigate((currentIndex + 1) % images.length);
   }, [currentIndex, images.length, onNavigate]);
 
   const handlePrev = useCallback(() => {
-    setDirection(-1);
+    setDirection(1); // In RTL, prev comes from the right
     onNavigate((currentIndex - 1 + images.length) % images.length);
   }, [currentIndex, images.length, onNavigate]);
 
@@ -157,7 +157,7 @@ export function Lightbox({
 
           {/* Image Container */}
           <div 
-            className="relative w-full h-[80vh] max-w-7xl px-4 md:px-20 flex items-center justify-center pointer-events-none"
+            className="relative w-full h-[80vh] max-w-7xl px-4 md:px-20 flex items-center justify-center pointer-events-none select-none"
             onClick={(e) => e.stopPropagation()}
           >
             <AnimatePresence mode="popLayout" custom={direction}>
@@ -168,15 +168,34 @@ export function Lightbox({
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="relative w-full h-full pointer-events-auto cursor-zoom-out"
-                onClick={onClose}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.7}
+                onDragEnd={(_, { offset, velocity }) => {
+                  const swipe = Math.abs(offset.x) > 50 || Math.abs(velocity.x) > 500;
+                  if (swipe) {
+                    // In RTL: Swipe LEFT (negative x) -> Prev, Swipe RIGHT (positive x) -> Next
+                    // But usually swipe direction is "pushing" the current image.
+                    // Let's use standard: offset.x > 100 means we pulled it to the right -> show image to the left.
+                    if (offset.x > 0) {
+                      handleNext(); // In RTL, Next is to the left, so pulling right reveals it? No.
+                      // Let's stick to what feels natural:
+                      // Pulling Right -> Previous (index - 1)
+                      // Pulling Left -> Next (index + 1)
+                    } else {
+                      handlePrev();
+                    }
+                  }
+                }}
+                className="relative w-full h-full pointer-events-auto cursor-grab active:cursor-grabbing touch-none"
               >
                 <Image
                   src={images[currentIndex]}
                   alt={`صورة المشروع ${currentIndex + 1}`}
                   fill
                   priority
-                  className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                  draggable={false}
+                  className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-none"
                   sizes="(max-width: 1280px) 100vw, 1280px"
                 />
               </motion.div>

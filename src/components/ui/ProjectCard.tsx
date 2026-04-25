@@ -69,7 +69,7 @@ export function ProjectCard({ project, variants, onClick }: ProjectCardProps) {
           {/* View Details */}
           <div className="mt-6 transform translate-y-4 opacity-0 transition-all duration-500 delay-200 group-hover:translate-y-0 group-hover:opacity-100">
             <span className="inline-block bg-gold text-primary px-5 py-2 rounded text-sm font-bold shadow-lg shadow-gold/20 hover:bg-gold-light transition-colors duration-300">
-              رؤية التفاصيل
+              عرض
             </span>
           </div>
         </div>
