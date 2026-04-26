@@ -1,4 +1,4 @@
-# 🏗️ Tashyed Alqwa
+# 🏗️ جوهرة الظل للمقاولات العامة
 
 > Premium Corporate Construction Website & Management System
 
@@ -74,52 +74,10 @@ The project adheres to Clean Architecture principles to ensure scalability, test
 
 ---
 
-## 🚀 Getting Started
 
-Follow these steps to set up the project locally.
 
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-2. **Setup environment variables**
-   Create a `.env` file in the root directory and configure your database connection string (see [Environment Variables](#-environment-variables) below).
-
-3. **Run database migrations**
-   ```bash
-   npx prisma db push
-   # or
-   npx prisma migrate dev
-   ```
-
-4. **Run the project**
-   ```bash
-   npm run dev
-   ```
-   *The application will be available at http://localhost:3000.*
-
----
-
-## 🔐 Environment Variables
-
-Ensure the following environment variable is correctly configured in your `.env` file for database connectivity:
-
-```env
-DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
-```
-
----
-
-## 🔮 Future Improvements
-
-- **Cloud Image Storage:** Migrate image hosting to a cloud provider (e.g., AWS S3, Cloudinary) to handle high-resolution project galleries at scale.
-- **Notifications System:** Implement real-time email or SMS alerts for incoming quote requests and system events.
-- **Performance Optimization:** Introduce advanced caching strategies and CDN integration for lightning-fast asset delivery.
-
----
 
 ## 👨‍💻 Author
 
-**[Your Name / Hussein Alomisi]**  
-*Senior Full-Stack Developer*
+**[Hussein Alomisi]**  
+*Software Developer*
