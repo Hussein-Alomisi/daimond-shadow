@@ -1,4 +1,4 @@
-import type { Service } from "@prisma/client";
+import type { service as Service } from "@prisma/client";
 import type { ServiceWriteInput } from "@/src/models/services/service";
 import { prisma } from "@/src/lib/db/prisma";
 

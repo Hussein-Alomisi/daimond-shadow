@@ -1,4 +1,4 @@
-﻿import type { Project } from "@prisma/client";
+import type { project as Project } from "@prisma/client";
 import type { ProjectWriteInput } from "@/src/models/projects/project";
 import { prisma } from "@/src/lib/db/prisma";
 

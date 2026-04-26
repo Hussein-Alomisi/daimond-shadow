@@ -1,4 +1,4 @@
-import type { Field as PrismaField, FieldImagesLibrary as PrismaFieldImagesLibrary } from "@prisma/client";
+import type { field as PrismaField, FieldImagesLibrary as PrismaFieldImagesLibrary } from "@prisma/client";
 import type {
   FieldSummary,
   FieldDetails,

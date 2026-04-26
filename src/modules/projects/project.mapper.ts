@@ -1,4 +1,4 @@
-﻿import type { Project as PrismaProject } from "@prisma/client";
+import type { project as PrismaProject } from "@prisma/client";
 import type {
   ProjectDetails,
   ProjectSummary,

@@ -1,4 +1,4 @@
-import type { Service as PrismaService } from "@prisma/client";
+import type { service as PrismaService } from "@prisma/client";
 import type {
   ServiceDetails,
   ServiceSummary,
