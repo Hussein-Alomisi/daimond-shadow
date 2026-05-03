@@ -140,6 +140,7 @@ export function FieldForm({ initialData, isEditing = false }: FieldFormProps) {
         message: isEditing ? "تم حفظ التعديلات بنجاح" : "تم إضافة المجال بنجاح",
       });
 
+      router.refresh();
       setTimeout(() => router.push("/dashboard/fields"), 1000);
     } catch (err: any) {
       setFeedback({ type: "error", message: err.message || "حدث خطأ إثناء الحفظ" });

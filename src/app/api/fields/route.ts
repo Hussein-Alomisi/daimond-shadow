@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { logError, logResponse } from "@/src/lib/utils/logger";
 import {
   createField,
@@ -57,6 +58,9 @@ export async function POST(req: Request) {
       aboutDescription,
       galleryTitle,
     });
+
+    revalidatePath("/");
+    revalidatePath("/fields");
 
     logResponse(201, url, Date.now() - start);
     return NextResponse.json(field, { status: 201 });

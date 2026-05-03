@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { logError, logResponse } from "@/src/lib/utils/logger";
 import {
   createProject,
@@ -49,6 +50,9 @@ export async function POST(req: Request) {
       category,
       image: imagePath,
     });
+
+    revalidatePath("/");
+    revalidatePath("/projects");
 
     logResponse(201, url, Date.now() - start);
     return NextResponse.json(project, { status: 201 });

@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Plus, Pencil, Trash2, AlertCircle, Loader2 } from "lucide-react";
 import { PageHeader } from "@/src/components/dashboard/PageHeader";
 import { Table } from "@/src/components/dashboard/Table";
@@ -10,6 +11,7 @@ import { SafeImage } from "@/src/components/ui/SafeImage";
 import type { ProjectSummary } from "@/src/models/projects/project";
 
 export default function ProjectsDashboardPage() {
+  const router = useRouter();
   const [projects, setProjects] = useState<ProjectSummary[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -49,6 +51,7 @@ export default function ProjectsDashboardPage() {
 
       // Optimistically remove from local state
       setProjects((prev) => prev.filter((p) => p.id !== project.id));
+      router.refresh();
     } catch (err: any) {
       alert(err.message || "حدث خطأ أثناء الحذف");
     } finally {

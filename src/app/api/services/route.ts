@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { logError, logResponse } from "@/src/lib/utils/logger";
 import {
   createService,
@@ -32,6 +33,9 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const service = await createService(body);
+
+    revalidatePath("/");
+    revalidatePath("/services");
 
     logResponse(201, url, Date.now() - start);
     return NextResponse.json(service, { status: 201 });

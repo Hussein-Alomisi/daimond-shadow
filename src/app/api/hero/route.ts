@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { logError, logResponse } from "@/src/lib/utils/logger";
 import { getHeroSettings, updateHeroSettings } from "@/src/modules/hero/hero.service";
 
@@ -43,6 +44,8 @@ export async function PUT(req: Request) {
       subtitle,
       image: imagePath || undefined,
     });
+
+    revalidatePath("/");
 
     logResponse(200, url, Date.now() - start);
     return NextResponse.json(settings);

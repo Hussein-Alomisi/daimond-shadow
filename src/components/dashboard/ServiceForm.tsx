@@ -71,6 +71,7 @@ export function ServiceForm({ defaultValues, serviceId }: ServiceFormProps) {
         message: isEditing ? "تم تحديث الخدمة بنجاح ✓" : "تم إضافة الخدمة بنجاح ✓",
       });
 
+      router.refresh();
       setTimeout(() => router.push("/dashboard/services"), 1000);
     } catch (err: any) {
       setFeedback({ type: "error", message: err.message || "فشل الاتصال بالخادم" });

@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { Loader2, ImagePlus, X } from "lucide-react";
 import Image from "next/image";
 import { PageHeader } from "@/src/components/dashboard/PageHeader";
 
 export default function HeroSettingsPage() {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
   const [currentImage, setCurrentImage] = useState("");
@@ -94,6 +96,7 @@ export default function HeroSettingsPage() {
       setCurrentImage(updated.image);
       clearImageSelection(); // reset image form part after success
       setFeedback({ type: "success", message: "تم حفظ الإعدادات بنجاح ✓" });
+      router.refresh();
     } catch (err: any) {
       setFeedback({ type: "error", message: err.message || "فشل الاتصال بالخادم" });
     } finally {

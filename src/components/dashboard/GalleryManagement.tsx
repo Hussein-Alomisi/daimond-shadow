@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { Plus, Trash2, Pencil, Loader2, X, ImagePlus } from "lucide-react";
 import { SafeImage } from "@/src/components/ui/SafeImage";
 import type { FieldImageDetails } from "@/src/models/fields/field";
@@ -11,6 +12,7 @@ interface GalleryManagementProps {
 }
 
 export function GalleryManagement({ fieldId, initialImages }: GalleryManagementProps) {
+  const router = useRouter();
   const [images, setImages] = useState<FieldImageDetails[]>(initialImages);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -100,6 +102,7 @@ export function GalleryManagement({ fieldId, initialImages }: GalleryManagementP
         setImages([...images, data]);
       }
 
+      router.refresh();
       closeForm();
     } catch (error: any) {
       alert(error.message || "حدث خطأ");
@@ -123,6 +126,7 @@ export function GalleryManagement({ fieldId, initialImages }: GalleryManagementP
       }
 
       setImages(images.filter((img) => img.id !== imageId));
+      router.refresh();
     } catch (error: any) {
       alert(error.message || "حدث خطأ");
     } finally {

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { logError, logResponse } from "@/src/lib/utils/logger";
 import {
   deleteService,
@@ -52,6 +53,9 @@ export async function PUT(
       return NextResponse.json({ error: "Service not found" }, { status: 404 });
     }
 
+    revalidatePath("/");
+    revalidatePath("/services");
+
     logResponse(200, url, Date.now() - start);
     return NextResponse.json(service);
   } catch (error: any) {
@@ -85,6 +89,9 @@ export async function DELETE(
       logResponse(404, url, Date.now() - start);
       return NextResponse.json({ error: "Service not found" }, { status: 404 });
     }
+
+    revalidatePath("/");
+    revalidatePath("/services");
 
     logResponse(200, url, Date.now() - start);
     return NextResponse.json({ message: "Deleted successfully" });

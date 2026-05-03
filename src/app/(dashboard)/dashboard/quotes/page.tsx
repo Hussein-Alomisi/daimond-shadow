@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { PageHeader } from "@/src/components/dashboard/PageHeader";
+import { useRouter } from "next/navigation";
 import { Table } from "@/src/components/dashboard/Table";
 import { AlertCircle, Clock, User, Phone, Briefcase, MessageSquare } from "lucide-react";
 
@@ -15,6 +16,7 @@ interface QuoteRequest {
 }
 
 export default function QuotesDashboardPage() {
+  const router = useRouter();
   const [quotes, setQuotes] = useState<QuoteRequest[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -120,7 +122,7 @@ export default function QuotesDashboardPage() {
             <p className="font-bold">خطأ في التحميل</p>
             <p>{error}</p>
           </div>
-          <button 
+          <button
             onClick={fetchQuotes}
             className="mr-auto bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-lg text-xs transition-all"
           >

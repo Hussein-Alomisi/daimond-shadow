@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { logError, logResponse } from "@/src/lib/utils/logger";
 import { updateFieldImage, deleteFieldImage } from "@/src/modules/fields/field.service";
 
@@ -41,6 +42,9 @@ export async function PUT(
       return NextResponse.json({ error: "Image not found" }, { status: 404 });
     }
 
+    revalidatePath("/fields");
+    revalidatePath("/fields/[slug]", "page");
+
     logResponse(200, url, Date.now() - start);
     return NextResponse.json(updatedImage);
   } catch (error: any) {
@@ -68,6 +72,9 @@ export async function DELETE(
       logResponse(404, url, Date.now() - start);
       return NextResponse.json({ error: "Image not found" }, { status: 404 });
     }
+
+    revalidatePath("/fields");
+    revalidatePath("/fields/[slug]", "page");
 
     logResponse(200, url, Date.now() - start);
     return NextResponse.json({ success: true });

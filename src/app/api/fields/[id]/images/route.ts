@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { logError, logResponse } from "@/src/lib/utils/logger";
 import { addImageToField } from "@/src/modules/fields/field.service";
 
@@ -33,6 +34,9 @@ export async function POST(
     if (!image) {
       return NextResponse.json({ error: "Could not add image, maybe field does not exist" }, { status: 400 });
     }
+
+    revalidatePath("/fields");
+    revalidatePath("/fields/[slug]", "page");
 
     logResponse(201, url, Date.now() - start);
     return NextResponse.json(image, { status: 201 });

@@ -90,6 +90,7 @@ export function ProjectForm({ defaultValues, projectId }: ProjectFormProps) {
       });
 
       // Navigate back after a short delay so the user sees the success message
+      router.refresh();
       setTimeout(() => router.push("/dashboard/projects"), 1000);
     } catch (err: any) {
       setFeedback({ type: "error", message: err.message || "فشل الاتصال بالخادم" });

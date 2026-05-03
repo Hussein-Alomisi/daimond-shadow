@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { logError, logResponse } from "@/src/lib/utils/logger";
 import { getSocialSettings, updateSocialSettings } from "@/src/modules/social/social.service";
 
@@ -28,6 +29,10 @@ export async function PUT(req: Request) {
   try {
     const body = await req.json();
     const settings = await updateSocialSettings(body);
+
+    revalidatePath("/");
+    revalidatePath("/about");
+    revalidatePath("/contact");
 
     logResponse(200, url, Date.now() - start);
     return NextResponse.json(settings);

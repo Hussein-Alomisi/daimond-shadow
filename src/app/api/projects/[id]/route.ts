@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { logError, logResponse } from "@/src/lib/utils/logger";
 import {
   deleteProject,
@@ -70,6 +71,9 @@ export async function PUT(
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
 
+    revalidatePath("/");
+    revalidatePath("/projects");
+
     logResponse(200, url, Date.now() - start);
     return NextResponse.json(project);
   } catch (error: any) {
@@ -106,6 +110,9 @@ export async function DELETE(
       logResponse(404, url, Date.now() - start);
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
+
+    revalidatePath("/");
+    revalidatePath("/projects");
 
     logResponse(200, url, Date.now() - start);
     return NextResponse.json({ message: "Deleted successfully" });

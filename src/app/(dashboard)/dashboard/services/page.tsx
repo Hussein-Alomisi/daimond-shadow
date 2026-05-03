@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Plus, Pencil, Trash2, AlertCircle, Loader2 } from "lucide-react";
 import { PageHeader } from "@/src/components/dashboard/PageHeader";
 import { Table } from "@/src/components/dashboard/Table";
 import type { ServiceSummary } from "@/src/models/services/service";
 
 export default function ServicesDashboardPage() {
+  const router = useRouter();
   const [services, setServices] = useState<ServiceSummary[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -48,6 +50,7 @@ export default function ServicesDashboardPage() {
       }
 
       setServices((prev) => prev.filter((p) => p.id !== id));
+      router.refresh();
     } catch (err: any) {
       alert(err.message || "حدث خطأ أثناء الحذف");
     } finally {

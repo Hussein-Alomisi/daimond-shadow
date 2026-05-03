@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Plus, Pencil, Trash2, AlertCircle, Loader2 } from "lucide-react";
 import { PageHeader } from "@/src/components/dashboard/PageHeader";
 import { Table } from "@/src/components/dashboard/Table";
@@ -9,6 +10,7 @@ import { SafeImage } from "@/src/components/ui/SafeImage";
 import type { FieldSummary } from "@/src/models/fields/field";
 
 export default function FieldsDashboardPage() {
+  const router = useRouter();
   const [fields, setFields] = useState<FieldSummary[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -47,6 +49,7 @@ export default function FieldsDashboardPage() {
       }
 
       setFields((prev) => prev.filter((p) => p.id !== field.id));
+      router.refresh();
     } catch (err: any) {
       alert(err.message || "حدث خطأ أثناء الحذف");
     } finally {
