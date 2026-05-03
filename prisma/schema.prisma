@@ -4,8 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  // url      = env("DATABASE_URL")
-  url      = "mysql://vercel_user:Str0ng@Pass123@3.14.4.161:3306/daimond_shadow"
+  url      = env("DATABASE_URL")
 }
 
 model field {

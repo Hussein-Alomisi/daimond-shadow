@@ -20,9 +20,9 @@ const footerServices = MOCK_FIELDS.map((f) => ({
 }));
 
 const visitorStats = [
-  { icon: Eye, label: "اليوم", value: "٢٤٨" },
-  { icon: Calendar, label: "الأسبوع", value: "١٬٧٣٢" },
-  { icon: Users, label: "الشهر", value: "٦٬٤٩١" },
+  { icon: Eye, label: "اليوم", value: "248" },
+  { icon: Calendar, label: "الأسبوع", value: "1732" },
+  { icon: Users, label: "الشهر", value: "6491" },
 ];
 
 // ─────────────────────────────────────────────
@@ -129,7 +129,7 @@ export function Footer({ socialSettings }: FooterProps) {
 
         <div className="container mx-auto px-6 max-w-7xl pt-16 pb-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
-            
+
             {/* Column 1: Company Info */}
             <MotionDiv
               custom={0}
@@ -285,8 +285,10 @@ export function Footer({ socialSettings }: FooterProps) {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/35">
             <p>© 2026 {SITE_INFO.fullName}. جميع الحقوق محفوظة.</p>
             <p>
-              تصميم وتطوير بمعايير{" "}
-              <span className="text-gold/70">احترافية عالية</span>
+              تصميم وتطوير{" "}
+              <span className="text-gold/70 cursor-pointer hover:underline">م/ حسين العميسي</span>
+
+              <span className="text-gold/70 mx-2 cursor-pointer hover:underline">967772344238</span>
             </p>
           </div>
         </div>

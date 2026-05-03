@@ -9,8 +9,12 @@ import {
   Layers,
   Layout,
   ChevronLeft,
-  MessageSquare // Added
+  MessageSquare,
+  LogOut,
+  Loader2 // Added
 } from "lucide-react";
+import { useRouter } from "next/navigation"; // Added
+import { useState } from "react"; // Added
 
 // Helper for conditional classNames
 function cn(...classes: (string | undefined | null | false)[]) {
@@ -34,6 +38,23 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      setIsLoggingOut(true);
+      const response = await fetch("/api/logout", { method: "POST" });
+      if (response.ok) {
+        router.push("/login");
+        router.refresh();
+      }
+    } catch (error) {
+      console.error("Logout failed", error);
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
 
   return (
     <>
@@ -84,13 +105,28 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         })}
       </nav>
 
-      <div className="p-4 border-t border-white/10">
+      <div className="p-4 border-t border-white/10 space-y-2">
         <Link
           href="/"
           className="flex items-center justify-center gap-2 py-2 px-4 rounded-xl border border-white/10 text-xs text-slate-400 hover:text-white hover:border-white/30 transition-colors"
         >
           العودة للموقع
         </Link>
+        
+        <button
+          onClick={handleLogout}
+          disabled={isLoggingOut}
+          className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition-all text-xs font-bold disabled:opacity-50"
+        >
+          {isLoggingOut ? (
+            <Loader2 size={16} className="animate-spin" />
+          ) : (
+            <>
+              <LogOut size={16} />
+              <span>تسجيل الخروج</span>
+            </>
+          )}
+        </button>
       </div>
     </aside>
     </>

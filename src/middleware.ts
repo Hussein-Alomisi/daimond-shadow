@@ -8,15 +8,29 @@ export async function middleware(request: NextRequest) {
     // Track Request method, URL, Timestamp via logger
     logRequest(request.method, url);
 
-    const response = NextResponse.next();
+    const session = request.cookies.get("admin_session")?.value;
+    const sessionSecret = process.env.SESSION_SECRET;
 
-    // We can also set a custom header to pass the start time if we want,
-    // but wrapping the API routes will handle execution time logging.
+    // 1. Protect /dashboard
+    if (url.startsWith("/dashboard")) {
+        if (!session || session !== sessionSecret) {
+            const loginUrl = new URL("/login", request.url);
+            return NextResponse.redirect(loginUrl);
+        }
+    }
 
-    return response;
+    // 2. Prevent logged in users from visiting /login
+    if (url === "/login") {
+        if (session && session === sessionSecret) {
+            const dashboardUrl = new URL("/dashboard", request.url);
+            return NextResponse.redirect(dashboardUrl);
+        }
+    }
+
+    return NextResponse.next();
 }
 
 export const config = {
-    // Only apply to API routes
-    matcher: ['/api/:path*'],
+    // Apply to dashboard, login and all API routes
+    matcher: ['/dashboard/:path*', '/login', '/api/:path*'],
 };

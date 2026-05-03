@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import { seedFields } from './seed-fields';
 import { seedHero } from './seed-hero';
