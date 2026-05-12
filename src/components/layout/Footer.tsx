@@ -284,12 +284,7 @@ export function Footer({ socialSettings }: FooterProps) {
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/35">
             <p>© 2026 {SITE_INFO.fullName}. جميع الحقوق محفوظة.</p>
-            <p>
-              تصميم وتطوير{" "}
-              <span className="text-gold/70 cursor-pointer hover:underline">م/ حسين العميسي</span>
 
-              <span className="text-gold/70 mx-2 cursor-pointer hover:underline">967772344238</span>
-            </p>
           </div>
         </div>
       </footer>
